@@ -8,23 +8,12 @@ const Grid = styled.div`
 `;
 const GridCell = styled.div`
   background-color: yellow;
-  border: black solid 1px;
-  grid-column: ${(props) => props.posx};
-  grid-row: ${(props) => props.posy};
-`;
-
-const GridItem = styled.div`
-  background-color: red;
-  border: black solid 1px;
+  border: #444 solid 1px;
   grid-column: ${(props) => props.posx};
   grid-row: ${(props) => props.posy};
 `;
 
 function GameGrid(props) {
-  const getGridSize = (sizePixel) => {
-    return Math.floor(sizePixel / 64);
-  };
-
   const populateGride = (x, y) => {
     let cellArray = [];
     for (let iY = 1; iY <= y; iY++) {
@@ -45,18 +34,10 @@ function GameGrid(props) {
   const startingX = props.xStart ? props.xStart : 0;
   const startingY = props.yStart ? props.yStart : 0;
 
-  const gridSizeX = getGridSize(xd);
-  const gridSizeY = getGridSize(yd);
-
   return (
-    <Grid width={gridSizeX} height={gridSizeY}>
-      {populateGride(gridSizeX, gridSizeY)}
-      <GridItem posx={4} posy={5}>
-        Player
-      </GridItem>
-      <GridItem posx={30} posy={30}>
-        Tester
-      </GridItem>
+    <Grid width={props.gridSizeX} height={props.gridSizeY}>
+      {populateGride(props.gridSizeX, props.gridSizeY)}
+      {props.children}
     </Grid>
   );
 }
