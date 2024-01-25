@@ -1,4 +1,7 @@
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+import { setLevel } from "../redux/slices/levelDataSlice";
 import level from "../gameData/level.json";
 
 import GameGrid from "./GameGrid";
@@ -12,35 +15,51 @@ const GameWindow = styled.div`
 `;
 
 function Game() {
-  const getGridSize = (levelSizeX, levelSizeY) => {
-    const maxX = Math.max(...levelSizeX);
-    const maxY = Math.max(...levelSizeY);
+  const dispatch = useDispatch();
 
-    return [maxX, maxY];
+  useEffect(() => {
+    gameInit();
+  }, []);
+
+  const gameInit = () => {
+    console.log("INITIALIZING");
+    document.addEventListener("keydown", handleInputs);
+    document.addEventListener("keyup", handleInputs);
+
+    const gridSizeX = Math.max(...level.map((item) => item.x));
+    const gridSizeY = Math.max(...level.map((item) => item.y));
+
+    const entityList = loadEntities(level);
+
+    const levelState = {
+      gridSizeX: gridSizeX,
+      gridSizeY: gridSizeY,
+      entityList: entityList,
+    };
+
+    dispatch(setLevel(levelState));
   };
 
   const loadEntities = (data) => {
-    const LevelEntities = level.map((E) => {
+    const levelEntities = level.map((E) => {
       return (
         <Entity posx={E.x} posy={E.y}>
           {E.text}
         </Entity>
       );
     });
-    return LevelEntities;
+    return levelEntities;
   };
 
-  const levelSizeX = level.map((item) => item.x);
-  const levelSizeY = level.map((item) => item.y);
+  const handleInputs = (event) => {
+    console.log(event.type, event.key);
+  };
 
-  const [gridSizeX, gridSizeY] = getGridSize(levelSizeX, levelSizeY);
-  const EntityList = loadEntities(level);
+  const entityList = useSelector((state) => state.levelState.entityList);
 
   return (
     <GameWindow>
-      <GameGrid gridSizeX={gridSizeX} gridSizeY={gridSizeY}>
-        {EntityList}
-      </GameGrid>
+      <GameGrid>{entityList}</GameGrid>
     </GameWindow>
   );
 }

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 const Grid = styled.div`
   background-color: aliceblue;
@@ -14,6 +15,9 @@ const GridCell = styled.div`
 `;
 
 function GameGrid(props) {
+  const gridSizeX = useSelector((state) => state.levelState.gridSizeX);
+  const gridSizeY = useSelector((state) => state.levelState.gridSizeY);
+
   const populateGride = (x, y) => {
     let cellArray = [];
     for (let iY = 1; iY <= y; iY++) {
@@ -28,15 +32,15 @@ function GameGrid(props) {
     return cellArray;
   };
 
-  const xd = props.xSize ? props.xSize : 1280;
-  const yd = props.ySize ? props.ySize : 720;
+  //   const xd = props.xSize ? props.xSize : 1280;
+  //   const yd = props.ySize ? props.ySize : 720;
 
-  const startingX = props.xStart ? props.xStart : 0;
-  const startingY = props.yStart ? props.yStart : 0;
+  //   const startingX = props.xStart ? props.xStart : 0;
+  //   const startingY = props.yStart ? props.yStart : 0;
 
   return (
-    <Grid width={props.gridSizeX} height={props.gridSizeY}>
-      {populateGride(props.gridSizeX, props.gridSizeY)}
+    <Grid width={gridSizeX} height={gridSizeY}>
+      {populateGride(gridSizeX, gridSizeY)}
       {props.children}
     </Grid>
   );
