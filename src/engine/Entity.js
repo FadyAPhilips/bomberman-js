@@ -3,8 +3,11 @@ import styled from "styled-components";
 const GridItem = styled.div`
   background-color: red;
   border: black solid 1px;
-  grid-column: ${(props) => props.posx};
-  grid-row: ${(props) => props.posy};
+  position: absolute;
+  left: ${(props) => (props.posx - 1) * 64}px;
+  top: ${(props) => (props.posy - 1) * 64}px;
+  height: 64px;
+  width: 64px;
 `;
 
 function Entity(props) {

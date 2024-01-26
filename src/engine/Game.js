@@ -26,8 +26,8 @@ function Game() {
     document.addEventListener("keydown", handleInputs);
     document.addEventListener("keyup", handleInputs);
 
-    const gridSizeX = Math.max(...level.map((item) => item.x));
-    const gridSizeY = Math.max(...level.map((item) => item.y));
+    const gridSizeX = Math.max(...level.map((item) => item.pos.x));
+    const gridSizeY = Math.max(...level.map((item) => item.pos.y));
 
     const entityList = loadEntities(level);
 
@@ -43,7 +43,7 @@ function Game() {
   const loadEntities = (data) => {
     const levelEntities = level.map((E) => {
       return (
-        <Entity posx={E.x} posy={E.y}>
+        <Entity posx={E.pos.x} posy={E.pos.y}>
           {E.text}
         </Entity>
       );

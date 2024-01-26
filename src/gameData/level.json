@@ -1,44 +1,72 @@
 [
-    {
-      "type": "pc",
+  {
+    "type": "pc",
+    "text": "1",
+    "pos":{
       "x": 1,
-      "y": 2,
-      "text": "Element 1"
+      "y": 1
     },
-    {
-      "type": "npc",
-      "x": 4,
-      "y": 4,
-      "text": "Element 2"
-    },
-    {
-      "type": "block",
-      "x": 5,
-      "y": 6,
-      "text": "Element 3"
-    },
-    {
-      "type": "block",
-      "x": 7,
-      "y": 8,
-      "text": "Element 4"
-    },
-    {
-      "type": "block",
-      "x": 9,
-      "y": 10,
-      "text": "Element 5"
-    },
-    {
-      "type": "block",
-      "x": 15,
-      "y": 4,
-      "text": "Element 6"
-    },
-    {
-      "type": "decoration",
-      "x": 20,
-      "y": 11,
-      "text": "Element 7"
+    "movement": {
+      "velocity": {
+        "x":0,
+        "y":0
+      },
+      "acceleration": {
+        "x":5,
+        "y":5
+      },
+      "maxVel": {
+        "x":20,
+        "y":20
+      }
     }
-  ]
+  },
+  {
+    "type": "npc",
+    "pos":{
+      "x": 1,
+      "y": 2
+    },
+    "text": "2"
+  },
+  {
+    "type": "block",
+    "pos":{
+      "x": 4,
+      "y": 10
+    },
+    "text": "3"
+  },
+  {
+    "type": "block",
+    "pos":{
+      "x": 10,
+      "y": 4
+    },
+    "text": "4"
+  },
+  {
+    "type": "block",
+    "pos":{
+      "x": 15,
+      "y": 9
+    },
+    "text": "5"
+  },
+  {
+    "type": "block",
+    "pos":{
+      "x": 20,
+      "y": 11
+    },
+    "text": "6"
+  },
+  {
+    "type": "decoration",
+    "pos":{
+      "x": 10,
+      "y": 10
+    },
+    "text": "7"
+  }
+]

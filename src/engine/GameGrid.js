@@ -6,6 +6,7 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(${(props) => props.width}, 64px);
   grid-template-rows: repeat(${(props) => props.height}, 64px);
+  position: relative;
 `;
 const GridCell = styled.div`
   background-color: yellow;
@@ -18,7 +19,7 @@ function GameGrid(props) {
   const gridSizeX = useSelector((state) => state.levelState.gridSizeX);
   const gridSizeY = useSelector((state) => state.levelState.gridSizeY);
 
-  const populateGride = (x, y) => {
+  const CreateGuideGrid = (x, y) => {
     let cellArray = [];
     for (let iY = 1; iY <= y; iY++) {
       for (let iX = 1; iX <= x; iX++) {
@@ -40,7 +41,7 @@ function GameGrid(props) {
 
   return (
     <Grid width={gridSizeX} height={gridSizeY}>
-      {populateGride(gridSizeX, gridSizeY)}
+      {/* {CreateGuideGrid(gridSizeX, gridSizeY)} */}
       {props.children}
     </Grid>
   );
