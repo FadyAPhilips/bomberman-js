@@ -52,7 +52,7 @@ function Game() {
   };
 
   const handleInputs = (event) => {
-    console.log(event.type, event.key);
+    console.log(event.type, event.code);
   };
 
   const entityList = useSelector((state) => state.levelState.entityList);

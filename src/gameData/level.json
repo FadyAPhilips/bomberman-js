@@ -1,35 +1,42 @@
 [
     {
+      "type": "pc",
       "x": 1,
       "y": 2,
       "text": "Element 1"
     },
     {
+      "type": "npc",
       "x": 4,
       "y": 4,
       "text": "Element 2"
     },
     {
+      "type": "block",
       "x": 5,
       "y": 6,
       "text": "Element 3"
     },
     {
+      "type": "block",
       "x": 7,
       "y": 8,
       "text": "Element 4"
     },
     {
+      "type": "block",
       "x": 9,
       "y": 10,
       "text": "Element 5"
     },
     {
+      "type": "block",
       "x": 15,
       "y": 4,
       "text": "Element 6"
     },
     {
+      "type": "decoration",
       "x": 20,
       "y": 11,
       "text": "Element 7"
