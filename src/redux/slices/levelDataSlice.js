@@ -1,12 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import level from "../../gameData/level.json";
 
+const newEntities = level.map((e) => {
+  let newEntity = JSON.parse(JSON.stringify(e));
+  let newX = (newEntity.pos.x - 1) * 64;
+  let newY = (newEntity.pos.y - 1) * 64;
+  newEntity.pos.x = newX;
+  newEntity.pos.y = newY;
+  return newEntity;
+});
+
 export const levelState = createSlice({
   name: "level",
   initialState: {
     gridSizeX: Math.max(...level.map((item) => item.pos.x)),
     gridSizeY: Math.max(...level.map((item) => item.pos.y)),
-    entityList: level,
+    entityList: newEntities,
   },
   reducers: {
     setGridSize: (state, action) => {
@@ -14,7 +23,6 @@ export const levelState = createSlice({
       state.gridSizeY = action.payload.gridSizeY;
     },
     setEntities: (state, action) => {
-      console.log("in state");
       state.entityList = action.payload;
     },
   },
