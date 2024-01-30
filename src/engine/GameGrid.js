@@ -41,7 +41,7 @@ function GameGrid(props) {
 
   return (
     <Grid width={gridSizeX} height={gridSizeY}>
-      {/* {CreateGuideGrid(gridSizeX, gridSizeY)} */}
+      {CreateGuideGrid(gridSizeX, gridSizeY)}
       {props.children}
     </Grid>
   );

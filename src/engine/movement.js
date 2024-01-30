@@ -10,25 +10,25 @@ class Component_Movement {
   static moveRight(ent) {
     const oldV = ent.velocity.X;
     const newV = oldV + ent.acc.X;
-    // return newx;
+    return newV;
   }
 
   static moveLeft(ent) {
-    // const oldx = ent.pos.x;
-    // const newx = oldx + ent.speedx;
-    // return newx;
+    const oldV = ent.velocity.X;
+    const newV = oldV - ent.acc.X;
+    return newV;
   }
 
   static moveUp(ent) {
-    // const oldx = ent.pos.x;
-    // const newx = oldx + ent.speedx;
-    // return newx;
+    const oldV = ent.velocity.Y;
+    const newV = oldV + ent.acc.Y;
+    return newV;
   }
 
   static moveDown(ent) {
-    // const oldx = ent.pos.x;
-    // const newx = oldx + ent.speedx;
-    // return newx;
+    const oldV = ent.velocity.Y;
+    const newV = oldV - ent.acc.Y;
+    return newV;
   }
 }
 

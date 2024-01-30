@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 const GridItem = styled.div`
   background-color: red;
-  border: black solid 1px;
+  /* border: black solid 1px; */
   position: absolute;
-  left: ${(props) => (props.posx - 1) * 64}px;
-  top: ${(props) => (props.posy - 1) * 64}px;
+  left: ${(props) => props.posx}px;
+  top: ${(props) => props.posy}px;
   height: 64px;
   width: 64px;
 `;
