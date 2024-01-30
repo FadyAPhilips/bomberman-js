@@ -12,9 +12,11 @@ const useGameInputHandler = () => {
 
       let pc = JSON.parse(JSON.stringify(entityList));
 
-      pc[0].pos.x++;
+      pc[0].pos.x += 20;
 
       dispatch(setEntities(pc));
+
+      //this to set input state to true
     }
   };
 

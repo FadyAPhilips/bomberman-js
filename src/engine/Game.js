@@ -5,6 +5,7 @@ import { setEntities } from "../redux/slices/levelDataSlice";
 import level from "../gameData/level.json";
 
 import useGameInputHandler from "./customHooks/useInputHandler";
+import useGameLoop from "./customHooks/useGameLoop";
 
 import GameGrid from "./GameGrid";
 import Entity from "./Entity";
@@ -18,6 +19,7 @@ const GameWindow = styled.div`
 
 function Game() {
   useGameInputHandler();
+  useGameLoop();
 
   const loadEntities = (data) => {
     const levelEntities = entityList.map((E) => {
