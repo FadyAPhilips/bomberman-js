@@ -2,7 +2,7 @@ const INPUT_MAP = {
   KeyW: "moveUp",
   KeyA: "moveLeft",
   KeyS: "moveDown",
-  dKeyD: "moveRight",
+  KeyD: "moveRight",
   Space: "action",
 };
-export default INPUT_MAP;
+export default COMPONENT_TYPES;
