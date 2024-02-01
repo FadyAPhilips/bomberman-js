@@ -25,49 +25,17 @@
     "type": "npc",
     "pos":{
       "x": 1,
-      "y": 2
+      "y": 3
     },
     "text": "2"
   },
   {
     "type": "block",
     "pos":{
-      "x": 4,
-      "y": 10
+      "x": 10,
+      "y": 8
     },
     "text": "3"
-  },
-  {
-    "type": "block",
-    "pos":{
-      "x": 10,
-      "y": 4
-    },
-    "text": "4"
-  },
-  {
-    "type": "block",
-    "pos":{
-      "x": 15,
-      "y": 9
-    },
-    "text": "5"
-  },
-  {
-    "type": "block",
-    "pos":{
-      "x": 20,
-      "y": 11
-    },
-    "text": "6"
-  },
-  {
-    "type": "decoration",
-    "pos":{
-      "x": 10,
-      "y": 10
-    },
-    "text": "7"
   },
   {
     "type": "decoration",

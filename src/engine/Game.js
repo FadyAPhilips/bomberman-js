@@ -18,7 +18,8 @@ const GameWindow = styled.div`
 `;
 
 function Game() {
-  useGameInputHandler();
+  //   useGameInputHandler();
+
   useGameLoop();
 
   const loadEntities = (data) => {
