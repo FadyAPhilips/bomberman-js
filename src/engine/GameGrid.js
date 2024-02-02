@@ -5,7 +5,7 @@ import gameConfig from "../gameData/gameConfig.json";
 const config = JSON.parse(JSON.stringify(gameConfig))[0];
 
 const Grid = styled.div`
-  background-color: aliceblue;
+  background-color: green;
   display: grid;
   grid-template-columns: repeat(
     ${(props) => props.width},
@@ -50,7 +50,7 @@ function GameGrid(props) {
 
   return (
     <Grid width={gridSizeX} height={gridSizeY}>
-      {CreateGuideGrid(gridSizeX, gridSizeY)}
+      {/* {CreateGuideGrid(gridSizeX, gridSizeY)} */}
       {props.children}
     </Grid>
   );

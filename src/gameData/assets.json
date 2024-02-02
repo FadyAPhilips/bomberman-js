@@ -1,0 +1,19 @@
+[
+    {
+        "player": {
+        "texturePath": "megaman.png",
+        "animationSlices": 1,
+        "SliceTime": 0
+        },
+        "block": {
+            "texturePath": "block.png",
+            "animationSlices": 1,
+            "SliceTime": 0
+        },
+        "playerJump": {
+            "texturePath": "air64.png",
+            "animationSlices": 1,
+            "SliceTime": 0
+        }
+    }
+]

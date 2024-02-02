@@ -24,11 +24,7 @@ function Game() {
 
   const loadEntities = (data) => {
     const levelEntities = entityList.map((E) => {
-      return (
-        <Entity posx={E.pos.x - 1} posy={E.pos.y - 1}>
-          {E.text}
-        </Entity>
-      );
+      return <Entity entityData={E} />;
     });
     return levelEntities;
   };

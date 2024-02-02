@@ -14,7 +14,7 @@ const useGameLoop = () => {
 
       const updatedEntities = entityList.map((entity) => {
         //update player movement controls
-        if (entity.type === "pc") {
+        if (entity.class === "pc") {
           if (controlsList.moveRight) {
             entity = Movement.moveRight(entity);
           }

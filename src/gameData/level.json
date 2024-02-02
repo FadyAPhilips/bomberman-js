@@ -1,6 +1,7 @@
 [
   {
-    "type": "pc",
+    "class": "pc",
+    "type": "player1",
     "text": "1",
     "pos":{
       "x": 1,
@@ -22,7 +23,7 @@
     }
   },
   {
-    "type": "npc",
+    "class": "npc",
     "pos":{
       "x": 1,
       "y": 3
@@ -30,7 +31,7 @@
     "text": "2"
   },
   {
-    "type": "block",
+    "class": "block",
     "pos":{
       "x": 10,
       "y": 8
@@ -38,7 +39,7 @@
     "text": "3"
   },
   {
-    "type": "decoration",
+    "class": "decoration",
     "pos":{
       "x": 21,
       "y": 12
