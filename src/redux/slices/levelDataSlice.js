@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import level from "../../gameData/level.json";
 
 const newEntities = level.map((e) => {

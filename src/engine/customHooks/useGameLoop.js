@@ -11,6 +11,9 @@ const useGameLoop = () => {
     const intervalId = setInterval(() => {
       console.log("New Frame");
 
+      //update movement controls
+
+      //updates position of an entity
       const updatedEntities = entityList.map((entity) => {
         if (entity.movement) {
           return Movement.updatePosition(entity);

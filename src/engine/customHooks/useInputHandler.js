@@ -1,21 +1,27 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setEntities } from "../../redux/slices/levelDataSlice";
 import {
   setInputToTrue,
   setInputToFalse,
 } from "../../redux/slices/inputsSlice";
+import CONTROLS from "../CONTROLS";
 
 const useGameInputHandler = () => {
   const dispatch = useDispatch();
-  const entityList = useSelector((state) => state.levelState.entityList);
 
   const handleInputs = (event) => {
     if (event.type === "keydown") {
-      dispatch(setInputToTrue(event.code));
+      if (CONTROLS[event.code]) {
+        console.log(CONTROLS[event.code]);
+        dispatch(setInputToTrue(CONTROLS[event.code]));
+      } else {
+        console.log("Button Unmapped");
+      }
     }
     if (event.type === "keyup") {
-      dispatch(setInputToFalse(event.code));
+      if (CONTROLS[event.code]) {
+        dispatch(setInputToFalse(CONTROLS[event.code]));
+      }
     }
   };
 

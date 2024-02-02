@@ -1,16 +1,8 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
-const initialInputState = {
-  KeyD: false,
-  KeyA: false,
-  KeyS: false,
-  KeyW: false,
-  Space: false,
-};
+import { createSlice } from "@reduxjs/toolkit";
 
 export const InputsState = createSlice({
-  name: "level",
-  initialState: initialInputState,
+  name: "controls",
+  initialState: {},
   reducers: {
     setInputToTrue: (state, action) => {
       state[action.payload] = true;

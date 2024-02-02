@@ -1,8 +1,8 @@
-const INPUT_MAP = {
+const CONTROLS = {
   KeyW: "moveUp",
   KeyA: "moveLeft",
   KeyS: "moveDown",
   KeyD: "moveRight",
   Space: "action",
 };
-export default COMPONENT_TYPES;
+export default CONTROLS;
