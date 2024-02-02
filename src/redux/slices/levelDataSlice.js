@@ -1,10 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import level from "../../gameData/level.json";
+import gameConfig from "../../gameData/gameConfig.json";
+
+const config = JSON.parse(JSON.stringify(gameConfig))[0];
 
 const newEntities = level.map((e) => {
   let newEntity = JSON.parse(JSON.stringify(e));
-  let newX = (newEntity.pos.x - 1) * 64;
-  let newY = (newEntity.pos.y - 1) * 64;
+  let newX = (newEntity.pos.x - 1) * config.gridCellSize;
+  let newY = (newEntity.pos.y - 1) * config.gridCellSize;
   newEntity.pos.x = newX;
   newEntity.pos.y = newY;
   return newEntity;

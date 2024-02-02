@@ -1,11 +1,20 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import gameConfig from "../gameData/gameConfig.json";
+
+const config = JSON.parse(JSON.stringify(gameConfig))[0];
 
 const Grid = styled.div`
   background-color: aliceblue;
   display: grid;
-  grid-template-columns: repeat(${(props) => props.width}, 64px);
-  grid-template-rows: repeat(${(props) => props.height}, 64px);
+  grid-template-columns: repeat(
+    ${(props) => props.width},
+    ${config.gridCellSize}px
+  );
+  grid-template-rows: repeat(
+    ${(props) => props.height},
+    ${config.gridCellSize}px
+  );
   position: relative;
 `;
 const GridCell = styled.div`
