@@ -1,8 +1,8 @@
 const CONTROLS = {
-  KeyW: "moveUp",
-  KeyA: "moveLeft",
-  KeyS: "moveDown",
   KeyD: "moveRight",
+  KeyA: "moveLeft",
+  KeyW: "moveUp",
+  KeyS: "moveDown",
   Space: "action",
 };
 export default CONTROLS;
