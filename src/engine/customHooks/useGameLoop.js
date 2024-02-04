@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setEntities } from "../../redux/slices/levelDataSlice";
-import Movement from "../movement";
+import Movement from "../helperClasses/movement";
 
 const useGameLoop = () => {
   const dispatch = useDispatch();

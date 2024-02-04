@@ -4,8 +4,8 @@
     "type": "player1",
     "text": "1",
     "pos":{
-      "x": 1,
-      "y": 1
+      "x": 2,
+      "y": 2
     },
     "movement": {
       "velocity": {
@@ -17,24 +17,217 @@
         "y":3
       },
       "maxVel": {
-        "x":6,
-        "y":6
+        "x":8,
+        "y":8
       }
     }
   },
   {
     "class": "npc",
     "pos":{
-      "x": 1,
-      "y": 3
+      "x": 5,
+      "y": 9
     },
     "text": "2"
   },
   {
     "class": "block",
     "pos":{
-      "x": 10,
+      "x": 1,
+      "y": 1
+    },
+    "text": "3"
+  },
+  {
+    "class": "block",
+    "pos":{
+      "x": 1,
+      "y": 2
+    },
+    "text": "3"
+  },
+  {
+    "class": "block",
+    "pos":{
+      "x": 1,
+      "y": 3
+    },
+    "text": "3"
+  },
+  {
+    "class": "block",
+    "pos":{
+      "x": 1,
+      "y": 4
+    },
+    "text": "3"
+  },
+  {
+    "class": "block",
+    "pos":{
+      "x": 1,
+      "y": 5
+    },
+    "text": "3"
+  },
+  {
+    "class": "block",
+    "pos":{
+      "x": 1,
+      "y": 6
+    },
+    "text": "3"
+  },
+  {
+    "class": "block",
+    "pos":{
+      "x": 1,
+      "y": 7
+    },
+    "text": "3"
+  },
+  {
+    "class": "block",
+    "pos":{
+      "x": 1,
       "y": 8
+    },
+    "text": "3"
+  },
+  {
+    "class": "block",
+    "pos":{
+      "x": 1,
+      "y": 9
+    },
+    "text": "3"
+  },
+  {
+    "class": "block",
+    "pos":{
+      "x": 1,
+      "y": 10
+    },
+    "text": "3"
+  },
+  {
+    "class": "block",
+    "pos":{
+      "x": 1,
+      "y": 11
+    },
+    "text": "3"
+  },
+  {
+    "class": "block",
+    "pos":{
+      "x": 1,
+      "y": 12
+    },
+    "text": "3"
+  },
+  {
+    "class": "block",
+    "pos":{
+      "x": 2,
+      "y": 12
+    },
+    "text": "3"
+  },
+  {
+    "class": "block",
+    "pos":{
+      "x": 3,
+      "y": 12
+    },
+    "text": "3"
+  },
+  {
+    "class": "block",
+    "pos":{
+      "x": 4,
+      "y": 12
+    },
+    "text": "3"
+  },
+  {
+    "class": "block",
+    "pos":{
+      "x": 5,
+      "y": 12
+    },
+    "text": "3"
+  },
+  {
+    "class": "block",
+    "pos":{
+      "x": 6,
+      "y": 12
+    },
+    "text": "3"
+  },
+  {
+    "class": "block",
+    "pos":{
+      "x": 7,
+      "y": 12
+    },
+    "text": "3"
+  },
+
+    {
+    "class": "block",
+    "pos":{
+      "x": 8,
+      "y": 12
+    },
+    "text": "3"
+  },
+  {
+    "class": "block",
+    "pos":{
+      "x": 9,
+      "y": 12
+    },
+    "text": "3"
+  },
+  {
+    "class": "block",
+    "pos":{
+      "x": 10,
+      "y": 12
+    },
+    "text": "3"
+  },
+  {
+    "class": "block",
+    "pos":{
+      "x": 11,
+      "y": 12
+    },
+    "text": "3"
+  },
+  {
+    "class": "block",
+    "pos":{
+      "x": 12,
+      "y": 12
+    },
+    "text": "3"
+  },
+  {
+    "class": "block",
+    "pos":{
+      "x": 13,
+      "y": 12
+    },
+    "text": "3"
+  },
+  {
+    "class": "block",
+    "pos":{
+      "x": 14,
+      "y": 12
     },
     "text": "3"
   },

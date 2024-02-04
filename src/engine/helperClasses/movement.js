@@ -9,6 +9,8 @@ class Component_Movement {
 
     entity.pos.x = newX;
     entity.pos.y = newY;
+    entity.pos.prevX = oldX;
+    entity.pos.prevY = oldY;
 
     return entity;
   }

@@ -27,7 +27,7 @@ function Entity(props) {
     let currentAnimation;
 
     if (entity.type === "player1") {
-      if (entity.movement.velocity.x != 0) {
+      if (entity.movement.velocity.y != 0) {
         currentAnimation = assets.playerJump;
       } else {
         currentAnimation = assets.player;

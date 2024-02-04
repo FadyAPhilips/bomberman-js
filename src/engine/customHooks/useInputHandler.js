@@ -12,7 +12,6 @@ const useGameInputHandler = () => {
   const handleInputs = (event) => {
     if (event.type === "keydown") {
       if (CONTROLS[event.code]) {
-        console.log(CONTROLS[event.code]);
         dispatch(setInputToTrue(CONTROLS[event.code]));
       } else {
         console.log("Button Unmapped");
