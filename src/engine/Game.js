@@ -31,10 +31,20 @@ function Game() {
     return levelEntities;
   };
 
-  const entityList = useSelector((state) => state.levelState.entityList);
+  const levelData = useSelector((state) => state.levelState);
+  const entityList = levelData.entityList;
+
+  const calcGameWindowSize = () => {
+    const levelWidthPix = levelData.gridSizeX * config.gridCellSize;
+    const levelHeightPix = levelData.gridSizeY * config.gridCellSize;
+    const windowWidth = Math.min(levelWidthPix, config.gameWindow.width);
+    const windowHeight = Math.min(levelHeightPix, config.gameWindow.height);
+
+    return { width: windowWidth, height: windowHeight };
+  };
 
   return (
-    <GameWindow gameWindow={config.gameWindow}>
+    <GameWindow gameWindow={calcGameWindowSize()}>
       <GameGrid>{loadEntities(entityList)}</GameGrid>
     </GameWindow>
   );
