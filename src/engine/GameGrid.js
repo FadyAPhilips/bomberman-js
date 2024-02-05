@@ -5,7 +5,7 @@ import gameConfig from "../gameData/gameConfig.json";
 const config = JSON.parse(JSON.stringify(gameConfig))[0];
 
 const Grid = styled.div`
-  background-color: green;
+  /* background-color: red; */
   display: grid;
   grid-template-columns: repeat(
     ${(props) => props.width},
@@ -16,6 +16,7 @@ const Grid = styled.div`
     ${config.gridCellSize}px
   );
   position: relative;
+  /* transform: translate(-100px, -100px); */
 `;
 const GridCell = styled.div`
   background-color: yellow;

@@ -11,10 +11,11 @@ import GameGrid from "./GameGrid";
 import Entity from "./Entity";
 
 const GameWindow = styled.div`
-  /* width: 1280px;
-  height: 720px; */
-  overflow: scroll;
+  width: 1280px;
+  height: 720px;
+  overflow: hidden;
   margin: 30px;
+  background-color: green;
 `;
 
 function Game() {

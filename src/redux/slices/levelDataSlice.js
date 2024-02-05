@@ -10,6 +10,11 @@ const newEntities = level.map((e) => {
   let newY = (newEntity.pos.y - 1) * config.gridCellSize;
   newEntity.pos.x = newX;
   newEntity.pos.y = newY;
+  newEntity.pos.prevX = newX;
+  newEntity.pos.prevY = newY;
+  newEntity.pos.centerX = newX + newEntity.bounding.sizeX / 2;
+  newEntity.pos.centerY = newY + newEntity.bounding.sizeY / 2;
+
   return newEntity;
 });
 

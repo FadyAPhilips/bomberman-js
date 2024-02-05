@@ -1,24 +1,19 @@
 import styled from "styled-components";
 import gameConfig from "../gameData/gameConfig.json";
 import assetsMap from "../gameData/assets.json";
-import bomberman from "../assets/megaman.png";
 
 const config = JSON.parse(JSON.stringify(gameConfig))[0];
 const assets = JSON.parse(JSON.stringify(assetsMap))[0];
 
 const GridItem = styled.div`
-  /* background-color: red; */
-  /* border: black solid 1px; */
   position: absolute;
   left: ${(props) => props.posx}px;
   top: ${(props) => props.posy}px;
-  height: ${config.gridCellSize}px;
-  width: ${config.gridCellSize}px;
+  height: ${(props) => props.sizeY}px;
+  width: ${(props) => props.sizeX}px;
 `;
 
 const Sprite = styled.img`
-  height: ${config.gridCellSize}px;
-  width: ${config.gridCellSize}px;
   object-fit: scale-down;
 `;
 
@@ -45,11 +40,17 @@ function Entity(props) {
 
   return (
     <GridItem
-      posx={props.entityData.pos.x - 1}
-      posy={props.entityData.pos.y - 1}
+      posx={props.entityData.pos.x}
+      posy={props.entityData.pos.y}
       gridCellSize={props.gridCellSize}
+      sizeX={props.entityData.bounding.sizeX}
+      sizeY={props.entityData.bounding.sizeY}
     >
-      <Sprite src={currentAnimationImage} />
+      <Sprite
+        src={currentAnimationImage}
+        height={props.entityData.bounding.sizeY}
+        width={props.entityData.bounding.sizeX}
+      />
     </GridItem>
   );
 }
