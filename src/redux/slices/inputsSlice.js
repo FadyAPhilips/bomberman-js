@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const InputsState = createSlice({
+export const inputsState = createSlice({
   name: "controls",
   initialState: {},
   reducers: {
@@ -13,6 +13,6 @@ export const InputsState = createSlice({
   },
 });
 
-export const { setInputToTrue, setInputToFalse } = InputsState.actions;
+export const { setInputToTrue, setInputToFalse } = inputsState.actions;
 
-export default InputsState.reducer;
+export default inputsState.reducer;

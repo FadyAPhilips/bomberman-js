@@ -68,8 +68,8 @@
     "class": "pc",
     "type": "player1",
     "pos":{
-      "x": 3,
-      "y": 2
+      "x": 10,
+      "y": 7
     },
     "movement": {
       "velocity": {

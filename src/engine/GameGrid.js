@@ -5,7 +5,6 @@ import gameConfig from "../gameData/gameConfig.json";
 const config = JSON.parse(JSON.stringify(gameConfig))[0];
 
 const Grid = styled.div`
-  /* background-color: red; */
   display: grid;
   grid-template-columns: repeat(
     ${(props) => props.width},
@@ -16,7 +15,10 @@ const Grid = styled.div`
     ${config.gridCellSize}px
   );
   position: relative;
-  /* transform: translate(-100px, -100px); */
+  transform: translate(
+    ${(props) => props.cameraX}px,
+    ${(props) => props.cameraY}px
+  );
 `;
 const GridCell = styled.div`
   background-color: yellow;
@@ -28,6 +30,8 @@ const GridCell = styled.div`
 function GameGrid(props) {
   const gridSizeX = useSelector((state) => state.levelState.gridSizeX);
   const gridSizeY = useSelector((state) => state.levelState.gridSizeY);
+  const cameraPosX = useSelector((state) => state.cameraState.x) * -1;
+  const cameraPosY = useSelector((state) => state.cameraState.y) * -1;
 
   const CreateGuideGrid = (x, y) => {
     let cellArray = [];
@@ -43,14 +47,13 @@ function GameGrid(props) {
     return cellArray;
   };
 
-  //   const xd = props.xSize ? props.xSize : 1280;
-  //   const yd = props.ySize ? props.ySize : 720;
-
-  //   const startingX = props.xStart ? props.xStart : 0;
-  //   const startingY = props.yStart ? props.yStart : 0;
-
   return (
-    <Grid width={gridSizeX} height={gridSizeY}>
+    <Grid
+      width={gridSizeX}
+      height={gridSizeY}
+      cameraX={cameraPosX}
+      cameraY={cameraPosY}
+    >
       {/* {CreateGuideGrid(gridSizeX, gridSizeY)} */}
       {props.children}
     </Grid>

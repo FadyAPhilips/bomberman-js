@@ -1,12 +1,19 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setEntities } from "../../redux/slices/levelDataSlice";
+import { setCameraPosition } from "../../redux/slices/cameraSlice";
+import Camera from "../helperClasses/camera";
 import Movement from "../helperClasses/movement";
+import gameConfig from "../../gameData/gameConfig.json";
 
 const useGameLoop = () => {
   const dispatch = useDispatch();
-  const entityList = useSelector((state) => state.levelState.entityList);
-  const controlsList = useSelector((state) => state.InputsState);
+  const levelData = useSelector((state) => state.levelState);
+  const controlsList = useSelector((state) => state.inputsState);
+  const cameraState = useSelector((state) => state.cameraState);
+  const config = JSON.parse(JSON.stringify(gameConfig))[0];
+
+  const entityList = levelData.entityList;
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -29,6 +36,19 @@ const useGameLoop = () => {
           }
 
           entity = Movement.decelerate(entity);
+
+          //camera Controls on Player
+          if (cameraState.type === "follow-box") {
+            const camera = Camera.followBoxCamera(
+              entity,
+              config.gameWindow,
+              cameraState,
+              levelData.gridSizeX,
+              levelData.gridSizeY,
+              config.gridCellSize
+            );
+            dispatch(setCameraPosition(camera));
+          }
         }
 
         //updates position of an entity
