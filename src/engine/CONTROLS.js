@@ -4,5 +4,6 @@ const CONTROLS = {
   KeyW: "moveUp",
   KeyS: "moveDown",
   Space: "action",
+  KeyP: "pause",
 };
 export default CONTROLS;

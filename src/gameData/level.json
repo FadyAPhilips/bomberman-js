@@ -52,6 +52,19 @@
     }
   },
   {
+    "class": "block",
+    "pos":{
+      "x": 26,
+      "y": 15
+    },
+    "bounding":{
+      "sizeX":64,
+      "sizeY":64,
+      "hitBoxX":64,
+      "hitBoxY":64
+    }
+  },
+  {
     "class": "decoration",
     "pos":{
       "x": 21,
