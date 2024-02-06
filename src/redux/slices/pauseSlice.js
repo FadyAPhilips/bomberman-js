@@ -7,7 +7,6 @@ export const pauseState = createSlice({
     togglePause: (state) => {
       state.pauseStatus = !state.pauseStatus;
       state.pauseToggler = false;
-      console.log(state.pauseStatus);
     },
     resetToggler: (state) => {
       state.pauseToggler = true;

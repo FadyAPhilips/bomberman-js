@@ -19,8 +19,8 @@ const useGameLoop = () => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      console.log("New Frame");
       if (!pauseState.pauseStatus) {
+        console.log("Gmae Frame");
         const updatedEntities = entityList.map((entity) => {
           //update player movement controls
           if (entity.class === "pc") {
@@ -63,7 +63,6 @@ const useGameLoop = () => {
       }
 
       if (controlsList.pause) {
-        console.log("pausing Now");
         if (pauseState.pauseToggler) {
           dispatch(togglePause());
         }
