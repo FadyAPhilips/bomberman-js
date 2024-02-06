@@ -5,6 +5,7 @@ import { setCameraPosition } from "../../redux/slices/cameraSlice";
 import { togglePause, resetToggler } from "../../redux/slices/pauseSlice";
 import Camera from "../helperClasses/camera";
 import Movement from "../helperClasses/movement";
+import Physics from "../helperClasses/physics";
 import gameConfig from "../../gameData/gameConfig.json";
 
 const useGameLoop = () => {
@@ -20,7 +21,7 @@ const useGameLoop = () => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       if (!pauseState.pauseStatus) {
-        console.log("Gmae Frame");
+        console.log("Game Frame");
         const updatedEntities = entityList.map((entity) => {
           //update player movement controls
           if (entity.class === "pc") {
@@ -51,12 +52,24 @@ const useGameLoop = () => {
               );
               dispatch(setCameraPosition(camera));
             }
+
+            //update Collisions of Player entity
+            entityList.forEach((entity2) => {
+              if (entity2.class === "block") {
+                const overlap = Physics.getOverlap(entity, entity2);
+
+                if (overlap.x > 0 && overlap.y > 0) {
+                  console.log("OVERLAP");
+                }
+              }
+            });
           }
 
           //updates position of an entity
           if (entity.movement) {
             return Movement.updatePosition(entity);
           }
+
           return entity;
         });
         dispatch(setEntities(updatedEntities));

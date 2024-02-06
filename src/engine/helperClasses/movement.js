@@ -12,6 +12,16 @@ class Component_Movement {
     entity.pos.prevX = oldX;
     entity.pos.prevY = oldY;
 
+    const oldCX = entity.pos.centerX;
+    const oldCY = entity.pos.centerY;
+    const newCX = oldCX + entity.movement.velocity.x;
+    const newCY = oldCY + entity.movement.velocity.y;
+
+    entity.pos.centerX = newCX;
+    entity.pos.centerY = newCY;
+    entity.pos.prevCenterX = oldCX;
+    entity.pos.prevCenterY = oldCY;
+
     return entity;
   }
 

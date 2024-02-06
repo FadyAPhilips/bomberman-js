@@ -1,5 +1,4 @@
 [
-
   {
     "class": "npc",
     "pos":{
@@ -72,9 +71,7 @@
     },
     "bounding":{
       "sizeX":64,
-      "sizeY":64,
-      "hitBoxX":64,
-      "hitBoxY":64
+      "sizeY":64
     }
   },
   {
