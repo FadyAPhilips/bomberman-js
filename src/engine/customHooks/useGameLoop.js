@@ -21,10 +21,10 @@ const useGameLoop = () => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       if (!pauseState.pauseStatus) {
-        console.log("Game Frame");
+        // console.log("Game Frame");
         const updatedEntities = entityList.map((entity) => {
-          //update player movement controls
           if (entity.class === "pc") {
+            //update player movement controls
             if (controlsList.moveRight) {
               entity = Movement.moveRight(entity);
             }
@@ -39,6 +39,7 @@ const useGameLoop = () => {
             }
 
             entity = Movement.decelerate(entity);
+            entity = Movement.updatePosition(entity);
 
             //camera Controls on Player
             if (cameraState.type === "follow-box") {
@@ -54,20 +55,14 @@ const useGameLoop = () => {
             }
 
             //update Collisions of Player entity
-            entityList.forEach((entity2) => {
+            entityList.forEach((entity2, i) => {
               if (entity2.class === "block") {
-                const overlap = Physics.getOverlap(entity, entity2);
-
+                let overlap = Physics.getOverlap(entity, entity2);
                 if (overlap.x > 0 && overlap.y > 0) {
-                  console.log("OVERLAP");
+                  entity = Physics.wallCollision(entity, entity2, overlap);
                 }
               }
             });
-          }
-
-          //updates position of an entity
-          if (entity.movement) {
-            return Movement.updatePosition(entity);
           }
 
           return entity;
