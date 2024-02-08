@@ -14,8 +14,8 @@ class Component_Movement {
 
     const oldCX = entity.pos.centerX;
     const oldCY = entity.pos.centerY;
-    const newCX = oldCX + entity.movement.velocity.x;
-    const newCY = oldCY + entity.movement.velocity.y;
+    const newCX = newX + entity.bounding.sizeX / 2;
+    const newCY = newY + entity.bounding.sizeY / 2;
 
     entity.pos.centerX = newCX;
     entity.pos.centerY = newCY;

@@ -6,6 +6,7 @@ const config = JSON.parse(JSON.stringify(gameConfig))[0];
 const assets = JSON.parse(JSON.stringify(assetsMap))[0];
 
 const GridItem = styled.div`
+  border: black solid 1px;
   position: absolute;
   left: ${(props) => props.posx}px;
   top: ${(props) => props.posy}px;

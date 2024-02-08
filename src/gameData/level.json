@@ -64,6 +64,19 @@
     }
   },
   {
+    "class": "block",
+    "pos":{
+      "x": 10,
+      "y": 4
+    },
+    "bounding":{
+      "sizeX":64,
+      "sizeY":64,
+      "hitBoxX":64,
+      "hitBoxY":64
+    }
+  },
+  {
     "class": "decoration",
     "pos":{
       "x": 21,
@@ -98,8 +111,8 @@
     "bounding":{
       "sizeX":64,
       "sizeY":64,
-      "hitBoxX":60,
-      "hitBoxY":60
+      "hitBoxX":64,
+      "hitBoxY":64
     }
   }
 ]
