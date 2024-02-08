@@ -36,7 +36,7 @@ class Physics {
       if (entity1Copy.pos.prevY < entity1Copy.pos.y) {
         entity1Copy.pos.y -= overlap.y;
         console.log("from top");
-      } else {
+      } else if (entity1Copy.pos.prevY > entity1Copy.pos.y) {
         entity1Copy.pos.y += overlap.y;
         console.log("from bottom");
       }
@@ -49,7 +49,7 @@ class Physics {
       if (entity1Copy.pos.prevX < entity1Copy.pos.x) {
         entity1Copy.pos.x -= overlap.x;
         console.log("from left");
-      } else {
+      } else if (entity1Copy.pos.prevX > entity1Copy.pos.x) {
         entity1Copy.pos.x += overlap.x;
         console.log("from right");
       }
