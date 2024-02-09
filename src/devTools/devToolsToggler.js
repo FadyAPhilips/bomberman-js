@@ -4,7 +4,8 @@ import { useSelector } from "react-redux";
 
 const Toggler = styled.div`
   display: flex;
-  background-color: ${(props) => props.togglerColor};
+  margin: 10px;
+  background-color: ${(props) => props.togglercolor};
   border: 1px black solid;
   border-radius: 6px;
   transition: 0.15s ease-in-out;
@@ -35,8 +36,11 @@ function DevToolsToggler(props) {
   };
 
   return (
-    <Toggler togglerColor={props.toggleState ? "green" : "red"}>
-      <Label onClick={props.onClick}>{props.setting}</Label>
+    <Toggler
+      togglercolor={props.toggleState ? "green" : "red"}
+      onClick={props.onClick}
+    >
+      <Label>{props.setting}</Label>
       <State toggleState={props.toggleState}>{toggleState()}</State>
     </Toggler>
   );

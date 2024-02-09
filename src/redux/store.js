@@ -4,6 +4,7 @@ import levelReducer from "./slices/levelDataSlice";
 import inputsReducer from "./slices/inputsSlice";
 import cameraReducer from "./slices/cameraSlice";
 import pauseReducer from "./slices/pauseSlice";
+import DevSettingReducer from "./slices/DevToolsSettingsSlice";
 
 export default configureStore({
   reducer: {
@@ -11,5 +12,6 @@ export default configureStore({
     inputsState: inputsReducer,
     cameraState: cameraReducer,
     pauseState: pauseReducer,
+    DevSettingState: DevSettingReducer,
   },
 });

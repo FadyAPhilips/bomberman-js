@@ -21,7 +21,7 @@ const Grid = styled.div`
   );
 `;
 const GridCell = styled.div`
-  background-color: yellow;
+  background-color: rgba(71, 245, 39, 0.25);
   border: #444 solid 1px;
   grid-column: ${(props) => props.posx};
   grid-row: ${(props) => props.posy};
@@ -32,19 +32,22 @@ function GameGrid(props) {
   const gridSizeY = useSelector((state) => state.levelState.gridSizeY);
   const cameraPosX = useSelector((state) => state.cameraState.x) * -1;
   const cameraPosY = useSelector((state) => state.cameraState.y) * -1;
+  const devSettings = useSelector((state) => state.DevSettingState.devSetting);
 
   const CreateGuideGrid = (x, y) => {
-    let cellArray = [];
-    for (let iY = 1; iY <= y; iY++) {
-      for (let iX = 1; iX <= x; iX++) {
-        cellArray.push(
-          <GridCell posx={iX} posy={iY}>
-            {iX},{iY}
-          </GridCell>
-        );
+    if (devSettings.gameGridToggle) {
+      let cellArray = [];
+      for (let iY = 1; iY <= y; iY++) {
+        for (let iX = 1; iX <= x; iX++) {
+          cellArray.push(
+            <GridCell posx={iX} posy={iY}>
+              {iX},{iY}
+            </GridCell>
+          );
+        }
       }
+      return cellArray;
     }
-    return cellArray;
   };
 
   return (
@@ -54,7 +57,7 @@ function GameGrid(props) {
       cameraX={cameraPosX}
       cameraY={cameraPosY}
     >
-      {/* {CreateGuideGrid(gridSizeX, gridSizeY)} */}
+      {CreateGuideGrid(gridSizeX, gridSizeY)}
       {props.children}
     </Grid>
   );
