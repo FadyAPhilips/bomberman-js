@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import Logger from "../../devTools/logger";
 import { setEntities } from "../../redux/slices/levelDataSlice";
 import { setCameraPosition } from "../../redux/slices/cameraSlice";
 import { togglePause, resetToggler } from "../../redux/slices/pauseSlice";
@@ -21,7 +22,7 @@ const useGameLoop = () => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       if (!pauseState.pauseStatus) {
-        // console.log("Game Frame");
+        Logger.log("GameFrame", "Game Frame");
         const updatedEntities = entityList.map((entity) => {
           if (entity.class === "pc") {
             //update player movement controls

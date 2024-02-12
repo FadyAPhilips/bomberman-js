@@ -21,7 +21,6 @@ function Game() {
   const config = JSON.parse(JSON.stringify(gameConfig))[0];
 
   useGameInputHandler();
-
   useGameLoop();
 
   const loadEntities = (data) => {

@@ -1,8 +1,7 @@
-let counter = 1;
+import Logger from "../../devTools/logger";
 
 class Physics {
   static getOverlap(entity1, entity2) {
-    // console.log(entity1.pos.centerY);
     const deltaX = Math.abs(entity1.pos.centerX - entity2.pos.centerX);
     const deltaY = Math.abs(entity1.pos.centerY - entity2.pos.centerY);
 
@@ -35,10 +34,10 @@ class Physics {
       entity1.movement.acceleration.y = 0;
       if (entity1Copy.pos.prevY < entity1Copy.pos.y) {
         entity1Copy.pos.y -= overlap.y;
-        console.log("from top");
+        Logger.log("Collisions", "from top");
       } else if (entity1Copy.pos.prevY > entity1Copy.pos.y) {
         entity1Copy.pos.y += overlap.y;
-        console.log("from bottom");
+        Logger.log("Collisions", "from bottom");
       }
       entity1Copy.pos.prevY = entity1Copy.pos.y;
     }
@@ -48,10 +47,10 @@ class Physics {
       entity1.movement.acceleration.x = 0;
       if (entity1Copy.pos.prevX < entity1Copy.pos.x) {
         entity1Copy.pos.x -= overlap.x;
-        console.log("from left");
+        Logger.log("Collisions", "from left");
       } else if (entity1Copy.pos.prevX > entity1Copy.pos.x) {
         entity1Copy.pos.x += overlap.x;
-        console.log("from right");
+        Logger.log("Collisions", "from right");
       }
       entity1Copy.pos.prevX = entity1Copy.pos.x;
     }

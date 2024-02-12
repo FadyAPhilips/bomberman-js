@@ -1,7 +1,11 @@
 import React, { useEffect, async } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleDevSetting } from "../redux/slices/DevToolsSettingsSlice";
+import {
+  toggleDevSetting,
+  toggleLoggerSetting,
+} from "../redux/slices/DevToolsSettingsSlice";
+import Logger from "./logger";
 
 import DevToolsToggler from "./devToolsToggler";
 
@@ -23,6 +27,11 @@ function DevToolsDash() {
   const devSettings = useSelector((state) => state.DevSettingState.devSetting);
   const loggerSettings = useSelector((state) => state.DevSettingState.logger);
 
+  const changeLoggerState = (setting) => {
+    dispatch(toggleLoggerSetting(setting));
+    Logger.toggleLoggerState(setting);
+  };
+
   const devSettingsTogglers = Object.keys(devSettings).map((setting) => {
     return (
       <DevToolsToggler
@@ -33,13 +42,23 @@ function DevToolsDash() {
     );
   });
 
+  const loggerSettingsTogglers = Object.keys(loggerSettings).map((setting) => {
+    return (
+      <DevToolsToggler
+        toggleState={loggerSettings[setting]}
+        setting={setting}
+        onClick={() => changeLoggerState(setting)}
+      />
+    );
+  });
+
   return (
     <DevTools>
       <h1>Dev Tools</h1>
       <h2>Dev Settings</h2>
       <TogglersDiv>{devSettingsTogglers}</TogglersDiv>
       <h2>Logger Settings</h2>
-      <TogglersDiv></TogglersDiv>
+      <TogglersDiv>{loggerSettingsTogglers}</TogglersDiv>
     </DevTools>
   );
 }

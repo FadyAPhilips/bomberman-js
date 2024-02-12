@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import Logger from "../../devTools/logger";
 import {
   setInputToTrue,
   setInputToFalse,
@@ -12,9 +13,10 @@ const useGameInputHandler = () => {
   const handleInputs = (event) => {
     if (event.type === "keydown") {
       if (CONTROLS[event.code]) {
+        Logger.log("Controls", CONTROLS[event.code]);
         dispatch(setInputToTrue(CONTROLS[event.code]));
       } else {
-        console.log("Button Unmapped");
+        Logger.log("Controls", "Button Unmapped");
       }
     }
     if (event.type === "keyup") {
