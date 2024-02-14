@@ -2,7 +2,8 @@ class Logger {
   static #loggerState = {
     Controls: false,
     Collisions: true,
-    GameFrame: true,
+    CollisionsDirection: false,
+    GameFrame: false,
   };
 
   static log(type, message) {

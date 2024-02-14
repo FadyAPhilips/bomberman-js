@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   toggleDevSetting,
   toggleLoggerSetting,
-} from "../redux/slices/DevToolsSettingsSlice";
-import Logger from "./logger";
+} from "../../redux/slices/DevToolsSettingsSlice";
+import Logger from "../logger";
 
 import DevToolsToggler from "./devToolsToggler";
 
