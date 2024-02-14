@@ -16,6 +16,12 @@ class Component_Place {
   getPrevPosition() {
     return this.prevPos;
   }
+
+  updatePosition(x, y) {
+    this.prevPos = this.pos;
+    this.pos.x = x;
+    this.pos.y = y;
+  }
 }
 
 export default Component_Place;
