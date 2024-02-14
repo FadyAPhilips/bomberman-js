@@ -12,10 +12,6 @@ const newEntities = level.map((e) => {
   newEntity.pos.y = newY;
   newEntity.pos.prevX = newX;
   newEntity.pos.prevY = newY;
-  newEntity.pos.centerX = newX + newEntity.bounding.sizeX / 2;
-  newEntity.pos.centerY = newY + newEntity.bounding.sizeY / 2;
-  newEntity.pos.prevCenterX = newEntity.pos.centerX;
-  newEntity.pos.prevCenterY = newEntity.pos.centerY;
 
   return newEntity;
 });

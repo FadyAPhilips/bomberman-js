@@ -1,9 +1,19 @@
 import Logger from "../../devTools/logger";
 
 class Physics {
+  static getCenterPosition(entity) {
+    const centerX = entity.pos.x + entity.bounding.sizeX / 2;
+    const centerY = entity.pos.y + entity.bounding.sizeY / 2;
+
+    return { x: centerX, y: centerY };
+  }
+
   static getOverlap(entity1, entity2) {
-    const deltaX = Math.abs(entity1.pos.centerX - entity2.pos.centerX);
-    const deltaY = Math.abs(entity1.pos.centerY - entity2.pos.centerY);
+    const ent1Center = this.getCenterPosition(entity1);
+    const ent2Center = this.getCenterPosition(entity2);
+
+    const deltaX = Math.abs(ent1Center.x - ent2Center.x);
+    const deltaY = Math.abs(ent1Center.y - ent2Center.y);
 
     const overlapX =
       entity1.bounding.hitBoxX / 2 + entity2.bounding.hitBoxX / 2 - deltaX;
@@ -14,8 +24,11 @@ class Physics {
   }
 
   static getPrevOverlap(entity1, entity2) {
-    const deltaX = Math.abs(entity1.pos.prevCenterX - entity2.pos.prevCenterX);
-    const deltaY = Math.abs(entity1.pos.prevCenterY - entity2.pos.prevCenterY);
+    const ent1Center = this.getCenterPosition(entity1);
+    const ent2Center = this.getCenterPosition(entity2);
+
+    const deltaX = Math.abs(ent1Center.x - ent2Center.x);
+    const deltaY = Math.abs(ent1Center.y - ent2Center.y);
 
     const overlapX =
       entity1.bounding.hitBoxX / 2 + entity2.bounding.hitBoxX / 2 - deltaX;
@@ -29,30 +42,32 @@ class Physics {
     let entity1Copy = JSON.parse(JSON.stringify(entity1));
     const prevOverlap = this.getPrevOverlap(entity1, entity2);
 
-    if (prevOverlap.y > 0) {
-      entity1.movement.velocity.y = 0;
-      entity1.movement.acceleration.y = 0;
-      if (entity1Copy.pos.prevY < entity1Copy.pos.y) {
-        entity1Copy.pos.y -= overlap.y;
-        Logger.log("Collisions", "from top");
-      } else if (entity1Copy.pos.prevY > entity1Copy.pos.y) {
-        entity1Copy.pos.y += overlap.y;
-        Logger.log("Collisions", "from bottom");
-      }
-      entity1Copy.pos.prevY = entity1Copy.pos.y;
-    }
-
     if (prevOverlap.x > 0) {
-      entity1.movement.velocity.x = 0;
-      entity1.movement.acceleration.x = 0;
       if (entity1Copy.pos.prevX < entity1Copy.pos.x) {
         entity1Copy.pos.x -= overlap.x;
-        Logger.log("Collisions", "from left");
+        // entity1Copy.overlapX = -1 * overlap.x;
+        Logger.log("CollisionsDirection", "from left");
       } else if (entity1Copy.pos.prevX > entity1Copy.pos.x) {
         entity1Copy.pos.x += overlap.x;
-        Logger.log("Collisions", "from right");
+        // entity1Copy.overlapX = overlap.x;
+
+        Logger.log("CollisionsDirection", "from right");
       }
-      entity1Copy.pos.prevX = entity1Copy.pos.x;
+      // entity1Copy.pos.prevX = entity1Copy.pos.x;
+    }
+    if (prevOverlap.y > 0) {
+      if (entity1Copy.pos.prevY < entity1Copy.pos.y) {
+        entity1Copy.pos.y -= overlap.y;
+        // entity1Copy.overlapY = -1 * overlap.y;
+
+        Logger.log("CollisionsDirection", "from top");
+      } else if (entity1Copy.pos.prevY > entity1Copy.pos.y) {
+        entity1Copy.pos.y += overlap.y;
+        // entity1Copy.overlapY = overlap.y;
+
+        Logger.log("CollisionsDirection", "from bottom");
+      }
+      // entity1Copy.pos.prevY = entity1Copy.pos.y;
     }
 
     return entity1Copy;

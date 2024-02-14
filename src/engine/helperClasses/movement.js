@@ -1,26 +1,46 @@
+import Logger from "../../devTools/logger";
+
 class Component_Movement {
   static updatePosition(ent) {
     let entity = JSON.parse(JSON.stringify(ent));
 
     const oldX = entity.pos.x;
     const oldY = entity.pos.y;
-    const newX = oldX + entity.movement.velocity.x;
-    const newY = oldY + entity.movement.velocity.y;
+    // const newX = oldX + entity.movement.velocity.x + (entity.overlapX || 0);
+    // const newY = oldY + entity.movement.velocity.y + (entity.overlapY || 0);
+
+    // const newX = entity.overlapX
+    //   ? oldX + entity.overlapX
+    //   : oldX + entity.movement.velocity.x;
+
+    let newX;
+    let newY;
+
+    if (entity.overlapX) {
+      newX = oldX + entity.overlapX;
+      entity.movement.velocity.x = 0;
+    } else {
+      newX = oldX + entity.movement.velocity.x;
+    }
+
+    if (entity.overlapY) {
+      newY = oldY + entity.overlapY;
+      entity.movement.velocity.y = 0;
+    } else {
+      newY = oldY + entity.movement.velocity.y;
+    }
+
+    // const newY = entity.overlapY
+    //   ? oldY + entity.overlapY
+    //   : oldY + entity.movement.velocity.y;
+
+    entity.overlapX = 0;
+    entity.overlapY = 0;
 
     entity.pos.x = newX;
     entity.pos.y = newY;
     entity.pos.prevX = oldX;
     entity.pos.prevY = oldY;
-
-    const oldCX = entity.pos.centerX;
-    const oldCY = entity.pos.centerY;
-    const newCX = newX + entity.bounding.sizeX / 2;
-    const newCY = newY + entity.bounding.sizeY / 2;
-
-    entity.pos.centerX = newCX;
-    entity.pos.centerY = newCY;
-    entity.pos.prevCenterX = oldCX;
-    entity.pos.prevCenterY = oldCY;
 
     return entity;
   }

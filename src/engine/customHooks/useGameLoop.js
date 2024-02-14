@@ -40,7 +40,6 @@ const useGameLoop = () => {
             }
 
             entity = Movement.decelerate(entity);
-            entity = Movement.updatePosition(entity);
 
             //camera Controls on Player
             if (cameraState.type === "follow-box") {
@@ -55,11 +54,16 @@ const useGameLoop = () => {
               dispatch(setCameraPosition(camera));
             }
 
+            entity = Movement.updatePosition(entity);
+
             //update Collisions of Player entity
             entityList.forEach((entity2, i) => {
               if (entity2.class === "block") {
                 let overlap = Physics.getOverlap(entity, entity2);
+                console.log(entity.pos);
+                console.log(entity2.pos);
                 if (overlap.x > 0 && overlap.y > 0) {
+                  // console.log("OVERLAP");
                   entity = Physics.wallCollision(entity, entity2, overlap);
                 }
               }
