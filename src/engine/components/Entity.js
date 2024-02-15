@@ -2,7 +2,7 @@ class Entity {
   constructor(type, subtype) {
     this.type = type;
     this.subtype = subtype;
-    this.components;
+    this.components = [];
   }
 
   addComponent(component) {
