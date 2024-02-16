@@ -17,6 +17,16 @@ const EntityList = [
     },
     [COMPONENTS.BOUNDING]: { x: 64, y: 64 },
   },
+  {
+    class: ENTITY_CLASSES.BLOCK,
+    subtype: ENTITY_SUBTYPES.BRICKS,
+    components: [COMPONENTS.PLACE, COMPONENTS.BOUNDING],
+    [COMPONENTS.PLACE]: {
+      pos: { x: 25, y: 20 },
+      size: { x: 64, y: 64 },
+    },
+    [COMPONENTS.BOUNDING]: { x: 64, y: 64 },
+  },
 ];
 
 export default EntityList;

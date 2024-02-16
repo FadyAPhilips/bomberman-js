@@ -4,18 +4,10 @@ import level2 from "../../gameData/level2.js";
 import gameConfig from "../../gameData/gameConfig.json";
 
 import ClassEntity from "../../engine/ecs/Entity";
+import ECS_COMPONENTS from "../../enums/COMPONENTS";
+import ENTITY_CLASSES from "../../enums/ENTITY_CLASSES";
 
 const config = JSON.parse(JSON.stringify(gameConfig))[0];
-
-const newEntities2 = level2.map((e) => {
-  const entity = new ClassEntity(e.class, e.subtype);
-  e.components.forEach((component) => {
-    const newComponent = new component(e[component]);
-    entity.addComponent(newComponent);
-  });
-  console.log(entity.getComponent("Component_Movement").getAcceleration());
-  return entity;
-});
 
 const newEntities = level.map((e) => {
   let newEntity = JSON.parse(JSON.stringify(e));
@@ -29,11 +21,42 @@ const newEntities = level.map((e) => {
   return newEntity;
 });
 
+let xPositions = config.minGridSize.x;
+let yPositions = config.minGridSize.x;
+const entityList = {};
+Object.values(ENTITY_CLASSES).forEach((element) => {
+  entityList[element] = [];
+});
+//Load Level
+level2.forEach((e) => {
+  //Creates all Entity Class Instances
+  const entity = new ClassEntity(e.class, e.subtype);
+  e.components.forEach((component) => {
+    const newComponent = new component(e[component]);
+    entity.addComponent(newComponent);
+  });
+
+  entityList[entity.getClass()].push(entity);
+  console.log(entityList);
+
+  //get Max Grid Size
+  const entityPosition = entity
+    .getComponent(ECS_COMPONENTS.PLACE)
+    .getPosition();
+
+  if (entityPosition.x > xPositions) {
+    xPositions = entityPosition.x;
+  }
+  if (entityPosition.y > yPositions) {
+    yPositions = entityPosition.y;
+  }
+});
+
 export const levelState = createSlice({
   name: "level",
   initialState: {
-    gridSizeX: Math.max(...level.map((item) => item.pos.x)),
-    gridSizeY: Math.max(...level.map((item) => item.pos.y)),
+    gridSizeX: xPositions,
+    gridSizeY: yPositions,
     entityList: newEntities,
   },
   reducers: {

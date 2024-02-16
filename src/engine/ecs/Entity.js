@@ -15,7 +15,7 @@ class Entity {
 
   getComponent(componentName) {
     return this.#components.find(
-      (component) => component.constructor.name === componentName
+      (component) => component.constructor.name === componentName.name
     );
   }
 
