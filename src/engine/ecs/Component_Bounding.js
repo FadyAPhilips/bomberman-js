@@ -1,7 +1,7 @@
 class Component_Bounding {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
+  constructor(params) {
+    this.x = params.x ? params.x : 64;
+    this.y = params.y ? params.y : 64;
   }
 
   getBounding() {

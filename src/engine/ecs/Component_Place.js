@@ -1,8 +1,8 @@
 class Component_Place {
-  constructor(pos, size = { x: 64, y: 64 }) {
-    this.pos = pos;
-    this.prevPos = pos;
-    this.size = size;
+  constructor(params) {
+    this.pos = params.pos;
+    this.prevPos = params.pos;
+    this.size = params.size ? params.size : { x: 64, y: 64 };
   }
 
   getSize() {

@@ -60,8 +60,7 @@ const useGameLoop = () => {
             entityList.forEach((entity2, i) => {
               if (entity2.class === "block") {
                 let overlap = Physics.getOverlap(entity, entity2);
-                console.log(entity.pos);
-                console.log(entity2.pos);
+
                 if (overlap.x > 0 && overlap.y > 0) {
                   // console.log("OVERLAP");
                   entity = Physics.wallCollision(entity, entity2, overlap);
