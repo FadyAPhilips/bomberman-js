@@ -1,10 +1,11 @@
 import React, { useEffect, async } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import gameConfig from "../gameData/gameConfig.json";
+import gameConfig from "../../gameData/gameConfig.json";
+import ENTITY_CLASSES from "../../enums/ENTITY_CLASSES";
 
-import useGameInputHandler from "./customHooks/useInputHandler";
-import useGameLoop from "./customHooks/useGameLoop";
+import useGameInputHandler from "../customHooks/useInputHandler";
+import useGameLoop from "../customHooks/useGameLoop";
 
 import GameGrid from "./GameGrid";
 import Entity from "./Entity";
@@ -20,18 +21,40 @@ const GameWindow = styled.div`
 function Game() {
   const config = JSON.parse(JSON.stringify(gameConfig))[0];
 
+  const levelData = useSelector((state) => state.levelState);
+  const entityList = levelData.entityList;
+
   useGameInputHandler();
   // useGameLoop();
 
   const loadEntities = (data) => {
-    const levelEntities = entityList.map((E) => {
-      return <Entity entityData={E} />;
+    const levelEntities = [];
+    //load all decoration
+    entityList[ENTITY_CLASSES.DECORATION].forEach((entity) => {
+      levelEntities.push(<Entity entityData={entity} />);
+    });
+
+    //load all blocks
+    entityList[ENTITY_CLASSES.BLOCK].forEach((entity) => {
+      levelEntities.push(<Entity entityData={entity} />);
+    });
+
+    //load all items
+    entityList[ENTITY_CLASSES.ITEM].forEach((entity) => {
+      levelEntities.push(<Entity entityData={entity} />);
+    });
+
+    //load all NPCs
+    entityList[ENTITY_CLASSES.NPC].forEach((entity) => {
+      levelEntities.push(<Entity entityData={entity} />);
+    });
+
+    //load all PCs
+    entityList[ENTITY_CLASSES.PC].forEach((entity) => {
+      levelEntities.push(<Entity entityData={entity} />);
     });
     return levelEntities;
   };
-
-  const levelData = useSelector((state) => state.levelState);
-  const entityList = levelData.entityList;
 
   const calcGameWindowSize = () => {
     const levelWidthPix = levelData.gridSizeX * config.gridCellSize;

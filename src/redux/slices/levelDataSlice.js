@@ -36,8 +36,8 @@ level2.forEach((e) => {
     entity.addComponent(newComponent);
   });
 
+  //pushing entities into their respective list in entityList
   entityList[entity.getClass()].push(entity);
-  console.log(entityList);
 
   //get Max Grid Size
   const entityPosition = entity
@@ -57,7 +57,8 @@ export const levelState = createSlice({
   initialState: {
     gridSizeX: xPositions,
     gridSizeY: yPositions,
-    entityList: newEntities,
+    // entityList: newEntities,
+    entityList: entityList,
   },
   reducers: {
     setGridSize: (state, action) => {

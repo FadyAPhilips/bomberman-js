@@ -1,6 +1,6 @@
 import store from "./redux/store";
 import { Provider } from "react-redux";
-import Game from "./engine/Game";
+import Game from "./engine/reactComponents/Game";
 import DevToolsDash from "./devTools/UI/devToolsDash";
 import "./App.css";
 

@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import gameConfig from "../gameData/gameConfig.json";
-import assetsMap from "../gameData/assets.json";
+import gameConfig from "../../gameData/gameConfig.json";
+import assetsMap from "../../gameData/assets.json";
+import COMPONENTS from "../../enums/COMPONENTS";
 
 import { useSelector } from "react-redux";
 
@@ -26,12 +27,17 @@ const Sprite = styled.img`
 
 function Entity(props) {
   const devSettings = useSelector((state) => state.DevSettingState.devSetting);
+  const entityInstance = props.entityData;
+  const entityPosition = entityInstance
+    .getComponent(COMPONENTS.PLACE)
+    .getPosition();
+  const entitySize = entityInstance.getComponent(COMPONENTS.PLACE).getSize();
 
   const handleAnimations = (entity) => {
     let currentAnimation;
 
-    if (entity.type === "player1") {
-      if (entity.movement.velocity.y != 0) {
+    if (entity.getSubtype() === "player1") {
+      if (entity.getComponent(COMPONENTS.MOVEMENT).getVelocity().y != 0) {
         currentAnimation = assets.playerJump;
       } else {
         currentAnimation = assets.player;
@@ -44,22 +50,22 @@ function Entity(props) {
   };
 
   const currentAnimation = handleAnimations(props.entityData);
-  const currentAnimationImage = require("../assets/" +
+  const currentAnimationImage = require("../../assets/" +
     currentAnimation.texturePath);
 
   return (
     <GridItem
-      posx={props.entityData.pos.x}
-      posy={props.entityData.pos.y}
-      sizeX={props.entityData.bounding.sizeX}
-      sizeY={props.entityData.bounding.sizeY}
+      posx={entityPosition.x}
+      posy={entityPosition.y}
+      sizeY={entitySize.y}
+      sizeX={entitySize.x}
       border={devSettings.borderToggle ? "black solid 1px" : ""}
       margin={devSettings.borderToggle ? "-1px" : "0"}
     >
       <Sprite
         src={currentAnimationImage}
-        height={props.entityData.bounding.sizeY}
-        width={props.entityData.bounding.sizeX}
+        height={entitySize.y}
+        width={entitySize.x}
       ></Sprite>
     </GridItem>
   );

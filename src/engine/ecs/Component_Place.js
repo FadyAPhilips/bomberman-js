@@ -1,10 +1,18 @@
+import gameConfig from "../../gameData/gameConfig.json";
+const config = JSON.parse(JSON.stringify(gameConfig))[0];
+
 class Component_Place {
   #pos;
   #prevPos;
   #size;
 
+  // * config.gridCellSize;
+
   constructor(params) {
-    this.#pos = params.pos;
+    this.#pos = {
+      x: (params.pos.x - 1) * config.gridCellSize,
+      y: (params.pos.y - 1) * config.gridCellSize,
+    };
     this.#prevPos = params.pos;
     this.#size = params.size ? params.size : { x: 64, y: 64 };
   }
