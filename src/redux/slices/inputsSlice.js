@@ -5,6 +5,7 @@ export const inputsState = createSlice({
   initialState: {},
   reducers: {
     setInputToTrue: (state, action) => {
+      console.log(action.payload);
       state[action.payload] = true;
     },
     setInputToFalse: (state, action) => {

@@ -6,15 +6,26 @@ class Component_Place {
   #prevPos;
   #size;
 
-  // * config.gridCellSize;
-
   constructor(params) {
     this.#pos = {
       x: (params.pos.x - 1) * config.gridCellSize,
       y: (params.pos.y - 1) * config.gridCellSize,
     };
-    this.#prevPos = params.pos;
+    this.#prevPos = params.prevPos
+      ? params.prevPos
+      : {
+          x: (params.pos.x - 1) * config.gridCellSize,
+          y: (params.pos.y - 1) * config.gridCellSize,
+        };
     this.#size = params.size ? params.size : { x: 64, y: 64 };
+  }
+
+  getEverything() {
+    return {
+      pos: this.getGridPosition(),
+      prevPos: this.#prevPos,
+      size: this.#size,
+    };
   }
 
   getSize() {
@@ -27,8 +38,8 @@ class Component_Place {
 
   getGridPosition() {
     const gridPosition = {
-      x: Math.floor(this.#pos.x / config.gridCellSize),
-      y: Math.floor(this.#pos.y / config.gridCellSize),
+      x: Math.floor(this.#pos.x / config.gridCellSize) + 1,
+      y: Math.floor(this.#pos.y / config.gridCellSize) + 1,
     };
     return gridPosition;
   }

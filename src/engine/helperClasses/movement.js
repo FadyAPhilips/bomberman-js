@@ -1,6 +1,9 @@
 import Logger from "../../devTools/logger";
+import Entity from "../ecs/Entity";
+import Component_Movement from "../ecs/Entity";
+import COMPONENTS from "../../enums/COMPONENTS";
 
-class Component_Movement {
+class Movement {
   static updatePosition(ent) {
     let entity = JSON.parse(JSON.stringify(ent));
 
@@ -45,9 +48,7 @@ class Component_Movement {
     return entity;
   }
 
-  static decelerate(ent) {
-    let entity = JSON.parse(JSON.stringify(ent));
-
+  static decelerate(entity) {
     let newV = entity.movement.velocity;
 
     if (newV.x > 0) {
@@ -79,9 +80,8 @@ class Component_Movement {
     return entity;
   }
 
-  static moveRight(ent) {
-    let entity = JSON.parse(JSON.stringify(ent));
-
+  static moveRight(entity) {
+    const eMovement = entity.getComponent(COMPONENTS.MOVEMENT);
     const oldV = entity.movement.velocity.x;
     let newV = oldV + entity.movement.acceleration.x;
 
@@ -136,4 +136,4 @@ class Component_Movement {
   }
 }
 
-export default Component_Movement;
+export default Movement;

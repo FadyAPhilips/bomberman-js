@@ -8,6 +8,7 @@ import Camera from "../helperClasses/camera";
 import Movement from "../helperClasses/movement";
 import Physics from "../helperClasses/physics";
 import gameConfig from "../../gameData/gameConfig.json";
+import ENTITY_CLASSES from "../../enums/ENTITY_CLASSES";
 
 const useGameLoop = () => {
   const dispatch = useDispatch();
@@ -22,65 +23,56 @@ const useGameLoop = () => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       if (!pauseState.pauseStatus) {
-        Logger.log("GameFrame", "Game Frame");
-        const updatedEntities = entityList.map((entity) => {
-          if (entity.class === "pc") {
-            //update player movement controls
-            if (controlsList.moveRight) {
-              entity = Movement.moveRight(entity);
-            }
-            if (controlsList.moveLeft) {
-              entity = Movement.moveLeft(entity);
-            }
-            if (controlsList.moveUp) {
-              entity = Movement.moveUp(entity);
-            }
-            if (controlsList.moveDown) {
-              entity = Movement.moveDown(entity);
-            }
-
-            entity = Movement.decelerate(entity);
-
-            //camera Controls on Player
-            if (cameraState.type === "follow-box") {
-              const camera = Camera.followBoxCamera(
-                entity,
-                config.gameWindow,
-                cameraState,
-                levelData.gridSizeX,
-                levelData.gridSizeY,
-                config.gridCellSize
-              );
-              dispatch(setCameraPosition(camera));
-            }
-
-            entity = Movement.updatePosition(entity);
-
-            //update Collisions of Player entity
-            entityList.forEach((entity2, i) => {
-              if (entity2.class === "block") {
-                let overlap = Physics.getOverlap(entity, entity2);
-
-                if (overlap.x > 0 && overlap.y > 0) {
-                  // console.log("OVERLAP");
-                  entity = Physics.wallCollision(entity, entity2, overlap);
-                }
-              }
-            });
+        // console.log("GameFrame", "Game Frame");
+        entityList[ENTITY_CLASSES.PC].forEach((entity) => {
+          //update player movement controls
+          if (controlsList.moveRight) {
+            // entity = Movement.moveRight(entity);
           }
-
-          return entity;
+          if (controlsList.moveLeft) {
+            // entity = Movement.moveLeft(entity);
+          }
+          if (controlsList.moveUp) {
+            // entity = Movement.moveUp(entity);
+          }
+          if (controlsList.moveDown) {
+            // entity = Movement.moveDown(entity);
+          }
+          // entity = Movement.decelerate(entity);
+          //camera Controls on Player
+          // if (cameraState.type === "follow-box") {
+          //   const camera = Camera.followBoxCamera(
+          //     entity,
+          //     config.gameWindow,
+          //     cameraState,
+          //     levelData.gridSizeX,
+          //     levelData.gridSizeY,
+          //     config.gridCellSize
+          //   );
+          //   dispatch(setCameraPosition(camera));
+          // }
+          // entity = Movement.updatePosition(entity);
+          //update Collisions of Player entity
+          // entityList.forEach((entity2, i) => {
+          //   if (entity2.class === "block") {
+          //     let overlap = Physics.getOverlap(entity, entity2);
+          //     if (overlap.x > 0 && overlap.y > 0) {
+          //       // console.log("OVERLAP");
+          //       entity = Physics.wallCollision(entity, entity2, overlap);
+          //     }
+          //   }
+          // });
         });
-        dispatch(setEntities(updatedEntities));
       }
+      // dispatch(setEntities(entityList));
 
-      if (controlsList.pause) {
-        if (pauseState.pauseToggler) {
-          dispatch(togglePause());
-        }
-      } else {
-        dispatch(resetToggler());
-      }
+      // if (controlsList.pause) {
+      //   if (pauseState.pauseToggler) {
+      //     dispatch(togglePause());
+      //   }
+      // } else {
+      //   dispatch(resetToggler());
+      // }
     }, 16.67);
 
     return () => clearInterval(intervalId);

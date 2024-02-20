@@ -7,6 +7,13 @@ class Component_Bounding {
     this.#y = params.y ? params.y : 64;
   }
 
+  getEverything() {
+    return {
+      x: this.#x,
+      y: this.#y,
+    };
+  }
+
   getBounding() {
     return { x: this.#x, y: this.#y };
   }

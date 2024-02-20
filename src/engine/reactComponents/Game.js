@@ -10,6 +10,8 @@ import useGameLoop from "../customHooks/useGameLoop";
 import GameGrid from "./GameGrid";
 import Entity from "./Entity";
 
+import ClassConstructor from "../helperClasses/classConstructor";
+
 const GameWindow = styled.div`
   width: ${(props) => props.gameWindow.width}px;
   height: ${(props) => props.gameWindow.height}px;
@@ -22,7 +24,10 @@ function Game() {
   const config = JSON.parse(JSON.stringify(gameConfig))[0];
 
   const levelData = useSelector((state) => state.levelState);
-  const entityList = levelData.entityList;
+
+  const entityPlainObj = levelData.entityList;
+
+  const entityList = ClassConstructor.entityListFromPlainObj(entityPlainObj);
 
   useGameInputHandler();
   // useGameLoop();

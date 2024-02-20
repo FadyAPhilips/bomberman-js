@@ -9,6 +9,14 @@ class Component_Movement {
     this.#maxVel = params.maxVel;
   }
 
+  getEverything() {
+    return {
+      velocity: this.#velocity,
+      acceleration: this.#acceleration,
+      maxVel: this.#maxVel,
+    };
+  }
+
   getVelocity() {
     return this.#velocity;
   }

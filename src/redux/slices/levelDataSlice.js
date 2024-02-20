@@ -37,7 +37,7 @@ level2.forEach((e) => {
   });
 
   //pushing entities into their respective list in entityList
-  entityList[entity.getClass()].push(entity);
+  entityList[entity.getClass()].push(entity.toPlainObject());
 
   //get Max Grid Size
   const entityPosition = entity
