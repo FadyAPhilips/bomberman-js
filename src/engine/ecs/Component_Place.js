@@ -25,6 +25,14 @@ class Component_Place {
     return this.#pos;
   }
 
+  getGridPosition() {
+    const gridPosition = {
+      x: Math.floor(this.#pos.x / config.gridCellSize),
+      y: Math.floor(this.#pos.y / config.gridCellSize),
+    };
+    return gridPosition;
+  }
+
   getPrevPosition() {
     return this.#prevPos;
   }

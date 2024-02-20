@@ -42,7 +42,7 @@ level2.forEach((e) => {
   //get Max Grid Size
   const entityPosition = entity
     .getComponent(ECS_COMPONENTS.PLACE)
-    .getPosition();
+    .getGridPosition();
 
   if (entityPosition.x > xPositions) {
     xPositions = entityPosition.x;
