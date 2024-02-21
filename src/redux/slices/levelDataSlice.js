@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import level from "../../gameData/level.json";
 import level2 from "../../gameData/level2.js";
 import gameConfig from "../../gameData/gameConfig.json";
 
@@ -8,18 +7,6 @@ import ECS_COMPONENTS from "../../enums/COMPONENTS";
 import ENTITY_CLASSES from "../../enums/ENTITY_CLASSES";
 
 const config = JSON.parse(JSON.stringify(gameConfig))[0];
-
-const newEntities = level.map((e) => {
-  let newEntity = JSON.parse(JSON.stringify(e));
-  let newX = (newEntity.pos.x - 1) * config.gridCellSize;
-  let newY = (newEntity.pos.y - 1) * config.gridCellSize;
-  newEntity.pos.x = newX;
-  newEntity.pos.y = newY;
-  newEntity.pos.prevX = newX;
-  newEntity.pos.prevY = newY;
-
-  return newEntity;
-});
 
 let xPositions = config.minGridSize.x;
 let yPositions = config.minGridSize.x;
@@ -57,7 +44,6 @@ export const levelState = createSlice({
   initialState: {
     gridSizeX: xPositions,
     gridSizeY: yPositions,
-    // entityList: newEntities,
     entityList: entityList,
   },
   reducers: {

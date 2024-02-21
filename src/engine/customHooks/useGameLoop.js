@@ -76,7 +76,7 @@ const useGameLoop = () => {
     }, 16.67);
 
     return () => clearInterval(intervalId);
-  }, [entityList, pauseState, dispatch, controlsList.pause]);
+  }, [entityList, pauseState, dispatch, controlsList]);
 };
 
 export default useGameLoop;

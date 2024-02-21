@@ -1,7 +1,7 @@
 import ClassEntity from "../ecs/Entity";
 import COMPONENTS from "../../enums/COMPONENTS";
 
-class ClassConstructor {
+class ClassBuilder {
   static entityListFromPlainObj(plainObj) {
     const entityList = {};
     Object.keys(plainObj).forEach((element) => {
@@ -18,4 +18,4 @@ class ClassConstructor {
   }
 }
 
-export default ClassConstructor;
+export default ClassBuilder;

@@ -1,8 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
+import CONTROLS from "../../gameData/controlsMap";
+
+const initialControls = {};
+
+Object.values(CONTROLS).forEach((control) => {
+  initialControls[control] = false;
+});
 
 export const inputsState = createSlice({
   name: "controls",
-  initialState: {},
+  initialState: initialControls,
   reducers: {
     setInputToTrue: (state, action) => {
       console.log(action.payload);
