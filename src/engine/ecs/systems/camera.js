@@ -1,16 +1,16 @@
+import COMPONENTS from "../../../enums/COMPONENTS";
+
 class Camera {
   static followBoxCamera(
-    ent,
+    entity,
     window,
     camera,
     levelWidth,
     levelHeight,
     gridCellSize
   ) {
-    let entity = JSON.parse(JSON.stringify(ent));
-
-    const entityPoxX = entity.pos.x;
-    const entityPoxY = entity.pos.y;
+    const entityPoxX = entity.getComponent(COMPONENTS.PLACE).position.x;
+    const entityPoxY = entity.getComponent(COMPONENTS.PLACE).position.y;
     let cameraPosX = camera.x;
     let cameraPosY = camera.y;
 

@@ -5,7 +5,7 @@ import {
   setInputToTrue,
   setInputToFalse,
 } from "../../redux/slices/inputsSlice";
-import CONTROLS from "../../gameData/CONTROLS";
+import CONTROLS from "../../gameData/controlsMap";
 
 const useGameInputHandler = () => {
   const dispatch = useDispatch();
