@@ -86,16 +86,16 @@ const useGameLoop = () => {
         entityList[ENTITY_CLASSES.DECORATION].forEach((entity) => {
           newEntityList[entity.class].push(entity.toPlainObject());
         });
+        dispatch(setEntities(newEntityList));
       }
-      dispatch(setEntities(newEntityList));
 
-      // if (controlsList.pause) {
-      //   if (pauseState.pauseToggler) {
-      //     dispatch(togglePause());
-      //   }
-      // } else {
-      //   dispatch(resetToggler());
-      // }
+      if (controlsList.pause) {
+        if (pauseState.pauseToggler) {
+          dispatch(togglePause());
+        }
+      } else {
+        dispatch(resetToggler());
+      }
     }, 16.67);
 
     return () => clearInterval(intervalId);
