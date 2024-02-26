@@ -9,6 +9,8 @@ import Movement from "../helperClasses/movement";
 import Physics from "../helperClasses/physics";
 import gameConfig from "../../gameData/gameConfig.json";
 import ENTITY_CLASSES from "../../enums/ENTITY_CLASSES";
+import ClassBuilder from "../helperClasses/ClassBuilder";
+import COMPONENTS from "../../enums/COMPONENTS";
 
 const useGameLoop = () => {
   const dispatch = useDispatch();
@@ -18,7 +20,12 @@ const useGameLoop = () => {
   const pauseState = useSelector((state) => state.pauseState);
   const config = JSON.parse(JSON.stringify(gameConfig))[0];
 
-  const entityList = levelData.entityList;
+  const entityPlainObj = levelData.entityList;
+  const entityList = ClassBuilder.entityListFromPlainObj(entityPlainObj);
+  const newEntityList = {};
+  Object.values(ENTITY_CLASSES).forEach((element) => {
+    newEntityList[element] = [];
+  });
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -26,19 +33,21 @@ const useGameLoop = () => {
         // console.log("GameFrame", "Game Frame");
         entityList[ENTITY_CLASSES.PC].forEach((entity) => {
           //update player movement controls
+          let newPosition = entity.getComponent(COMPONENTS.PLACE).position;
           if (controlsList.moveRight) {
-            // entity = Movement.moveRight(entity);
+            newPosition = Movement.moveRight(entity);
           }
           if (controlsList.moveLeft) {
-            // entity = Movement.moveLeft(entity);
+            newPosition = Movement.moveLeft(entity);
           }
           if (controlsList.moveUp) {
-            // entity = Movement.moveUp(entity);
+            newPosition = Movement.moveUp(entity);
           }
           if (controlsList.moveDown) {
-            // entity = Movement.moveDown(entity);
+            newPosition = Movement.moveDown(entity);
           }
-          // entity = Movement.decelerate(entity);
+          newPosition = Movement.decelerate(entity);
+
           //camera Controls on Player
           // if (cameraState.type === "follow-box") {
           //   const camera = Camera.followBoxCamera(
@@ -62,9 +71,23 @@ const useGameLoop = () => {
           //     }
           //   }
           // });
+
+          newEntityList[entity.class].push(entity.toPlainObject());
+        });
+        entityList[ENTITY_CLASSES.NPC].forEach((entity) => {
+          newEntityList[entity.class].push(entity.toPlainObject());
+        });
+        entityList[ENTITY_CLASSES.ITEM].forEach((entity) => {
+          newEntityList[entity.class].push(entity.toPlainObject());
+        });
+        entityList[ENTITY_CLASSES.BLOCK].forEach((entity) => {
+          newEntityList[entity.class].push(entity.toPlainObject());
+        });
+        entityList[ENTITY_CLASSES.DECORATION].forEach((entity) => {
+          newEntityList[entity.class].push(entity.toPlainObject());
         });
       }
-      // dispatch(setEntities(entityList));
+      dispatch(setEntities(newEntityList));
 
       // if (controlsList.pause) {
       //   if (pauseState.pauseToggler) {

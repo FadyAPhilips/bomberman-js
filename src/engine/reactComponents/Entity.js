@@ -28,16 +28,14 @@ const Sprite = styled.img`
 function Entity(props) {
   const devSettings = useSelector((state) => state.DevSettingState.devSetting);
   const entityInstance = props.entityData;
-  const entityPosition = entityInstance
-    .getComponent(COMPONENTS.PLACE)
-    .getPosition();
-  const entitySize = entityInstance.getComponent(COMPONENTS.PLACE).getSize();
+  const entityPosition = entityInstance.getComponent(COMPONENTS.PLACE).position;
+  const entitySize = entityInstance.getComponent(COMPONENTS.PLACE).size;
 
   const handleAnimations = (entity) => {
     let currentAnimation;
 
-    if (entity.getSubtype() === "player1") {
-      if (entity.getComponent(COMPONENTS.MOVEMENT).getVelocity().y != 0) {
+    if (entity.subtype === "player1") {
+      if (entity.getComponent(COMPONENTS.MOVEMENT).velocity.y != 0) {
         currentAnimation = assets.playerJump;
       } else {
         currentAnimation = assets.player;

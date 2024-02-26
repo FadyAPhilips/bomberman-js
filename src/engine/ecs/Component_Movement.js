@@ -1,46 +1,53 @@
 class Component_Movement {
-  #velocity;
-  #acceleration;
-  #maxVel;
-
   constructor(params) {
-    this.#velocity = params.velocity ? params.velocity : { x: 0, y: 0 };
-    this.#acceleration = params.acceleration;
-    this.#maxVel = params.maxVel;
+    this._velocity = params.velocity ? params.velocity : { x: 0, y: 0 };
+    this._acceleration = params.acceleration;
+    this._maxVel = params.maxVel;
   }
 
-  getEverything() {
+  get everything() {
     return {
-      velocity: this.#velocity,
-      acceleration: this.#acceleration,
-      maxVel: this.#maxVel,
+      velocity: this._velocity,
+      acceleration: this._acceleration,
+      maxVel: this._maxVel,
     };
   }
 
-  getVelocity() {
-    return this.#velocity;
+  get velocity() {
+    return this._velocity;
   }
 
-  getAcceleration() {
-    return this.#acceleration;
+  get acceleration() {
+    return this._acceleration;
   }
 
-  getMaxVelocity() {
-    return this.#maxVel;
+  get maxVelocity() {
+    return this._maxVel;
   }
 
-  setVelocity(newVel) {
-    if (Math.abs(newVel.x) > this.#maxVel.x) {
-      this.#velocity.x = this.#maxVel.x;
+  set velocity(newVel) {
+    let newX, newY;
+    if (Math.abs(newVel.x) > this._maxVel.x) {
+      if (newVel.x > 0) {
+        newX = this._maxVel.x;
+      } else {
+        newX = this._maxVel.x * -1;
+      }
     } else {
-      this.#velocity.x = newVel.x;
+      newX = newVel.x;
     }
 
-    if (Math.abs(newVel.y) > this.#maxVel.y) {
-      this.#velocity.y = this.#maxVel.y;
+    if (Math.abs(newVel.y) > this._maxVel.y) {
+      if (newVel.y > 0) {
+        newY = this._maxVel.y;
+      } else {
+        newY = this._maxVel.y * -1;
+      }
     } else {
-      this.#velocity.y = newVel.y;
+      newY = newVel.y;
     }
+
+    this._velocity = { x: newX, y: newY };
   }
 }
 

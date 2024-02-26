@@ -1,23 +1,19 @@
 import COMPONENTS from "../../enums/COMPONENTS";
 
 class Entity {
-  #class;
-  #subtype;
-  #components;
-
   constructor(type, subtype) {
-    this.#class = type;
-    this.#subtype = subtype;
-    this.#components = [];
+    this._class = type;
+    this._subtype = subtype;
+    this._components = [];
   }
 
   toPlainObject() {
     const obj = {
-      class: this.#class,
-      subtype: this.#subtype,
+      class: this._class,
+      subtype: this._subtype,
       components: [],
     };
-    this.#components.forEach((component) => {
+    this._components.forEach((component) => {
       let componentKey = null;
       for (const [key, value] of Object.entries(COMPONENTS)) {
         if (value === component.constructor) {
@@ -26,27 +22,27 @@ class Entity {
         }
       }
       obj.components.push(componentKey);
-      obj[componentKey] = component.getEverything();
+      obj[componentKey] = component.everything;
     });
     return obj;
   }
 
   addComponent(component) {
-    this.#components.push(component);
+    this._components.push(component);
   }
 
   getComponent(componentName) {
-    return this.#components.find(
+    return this._components.find(
       (component) => component.constructor.name === componentName.name
     );
   }
 
-  getClass() {
-    return this.#class;
+  get class() {
+    return this._class;
   }
 
-  getSubtype() {
-    return this.#subtype;
+  get subtype() {
+    return this._subtype;
   }
 }
 

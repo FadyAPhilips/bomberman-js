@@ -24,12 +24,10 @@ level2.forEach((e) => {
   });
 
   //pushing entities into their respective list in entityList
-  entityList[entity.getClass()].push(entity.toPlainObject());
+  entityList[entity.class].push(entity.toPlainObject());
 
   //get Max Grid Size
-  const entityPosition = entity
-    .getComponent(ECS_COMPONENTS.PLACE)
-    .getGridPosition();
+  const entityPosition = entity.getComponent(ECS_COMPONENTS.PLACE).gridPosition;
 
   if (entityPosition.x > xPositions) {
     xPositions = entityPosition.x;

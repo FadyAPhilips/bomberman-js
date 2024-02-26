@@ -1,6 +1,4 @@
 import Logger from "../../devTools/logger";
-import Entity from "../ecs/Entity";
-import Component_Movement from "../ecs/Entity";
 import COMPONENTS from "../../enums/COMPONENTS";
 
 class Movement {
@@ -49,7 +47,8 @@ class Movement {
   }
 
   static decelerate(entity) {
-    let newV = entity.movement.velocity;
+    const eMovement = entity.getComponent(COMPONENTS.MOVEMENT);
+    let newV = { ...eMovement.velocity };
 
     if (newV.x > 0) {
       newV.x -= 1;
@@ -74,65 +73,69 @@ class Movement {
         newV.y = 0;
       }
     }
+    eMovement.velocity = newV;
+    const newPosition = entity.getComponent(COMPONENTS.PLACE).position;
+    newPosition.x += eMovement.velocity.x;
+    newPosition.y += eMovement.velocity.y;
+    entity.getComponent(COMPONENTS.PLACE).position = newPosition;
 
-    entity.movement.velocity = newV;
-
-    return entity;
+    return newPosition;
   }
 
   static moveRight(entity) {
     const eMovement = entity.getComponent(COMPONENTS.MOVEMENT);
-    const oldV = entity.movement.velocity.x;
-    let newV = oldV + entity.movement.acceleration.x;
+    let oldV = { ...eMovement.velocity };
+    const newXV = oldV.x + eMovement.acceleration.x;
+    eMovement.velocity = { x: newXV, y: oldV.y };
 
-    if (Math.abs(newV) > entity.movement.maxVel.x) {
-      newV = entity.movement.maxVel.x;
-    }
+    const newPosition = entity.getComponent(COMPONENTS.PLACE).position;
+    newPosition.x += eMovement.velocity.x;
+    newPosition.y += eMovement.velocity.y;
+    // entity.getComponent(COMPONENTS.PLACE).position = newPosition;
 
-    entity.movement.velocity.x = newV;
-    return entity;
+    return newPosition;
   }
 
-  static moveLeft(ent) {
-    let entity = JSON.parse(JSON.stringify(ent));
+  static moveLeft(entity) {
+    const eMovement = entity.getComponent(COMPONENTS.MOVEMENT);
+    let oldV = { ...eMovement.velocity };
+    const newXV = oldV.x - eMovement.acceleration.x;
+    eMovement.velocity = { x: newXV, y: oldV.y };
 
-    const oldV = entity.movement.velocity.x;
-    let newV = oldV - entity.movement.acceleration.x;
+    const newPosition = entity.getComponent(COMPONENTS.PLACE).position;
+    newPosition.x += eMovement.velocity.x;
+    newPosition.y += eMovement.velocity.y;
+    // entity.getComponent(COMPONENTS.PLACE).position = newPosition;
 
-    if (Math.abs(newV) > entity.movement.maxVel.x) {
-      newV = entity.movement.maxVel.x * -1;
-    }
-
-    entity.movement.velocity.x = newV;
-    return entity;
+    return newPosition;
   }
 
-  static moveUp(ent) {
-    let entity = JSON.parse(JSON.stringify(ent));
+  static moveUp(entity) {
+    const eMovement = entity.getComponent(COMPONENTS.MOVEMENT);
+    let oldV = { ...eMovement.velocity };
+    const newYV = oldV.y - eMovement.acceleration.y;
+    eMovement.velocity = { x: oldV.x, y: newYV };
 
-    const oldV = entity.movement.velocity.y;
-    let newV = oldV - entity.movement.acceleration.y;
+    const newPosition = entity.getComponent(COMPONENTS.PLACE).position;
+    newPosition.x += eMovement.velocity.x;
+    newPosition.y += eMovement.velocity.y;
+    // entity.getComponent(COMPONENTS.PLACE).position = newPosition;
 
-    if (Math.abs(newV) > entity.movement.maxVel.y) {
-      newV = entity.movement.maxVel.y * -1;
-    }
-
-    entity.movement.velocity.y = newV;
-    return entity;
+    return newPosition;
   }
 
-  static moveDown(ent) {
-    let entity = JSON.parse(JSON.stringify(ent));
+  static moveDown(entity) {
+    const eMovement = entity.getComponent(COMPONENTS.MOVEMENT);
+    let oldV = { ...eMovement.velocity };
+    const newYV = oldV.y + eMovement.acceleration.y;
+    eMovement.velocity = { x: oldV.x, y: newYV };
 
-    const oldV = entity.movement.velocity.y;
-    let newV = oldV + entity.movement.acceleration.y;
+    const newPosition = entity.getComponent(COMPONENTS.PLACE).position;
+    newPosition.x += eMovement.velocity.x;
+    newPosition.y += eMovement.velocity.y;
+    // entity.getComponent(COMPONENTS.PLACE).position = newPosition;
 
-    if (Math.abs(newV) > entity.movement.maxVel.y) {
-      newV = entity.movement.maxVel.y;
-    }
-
-    entity.movement.velocity.y = newV;
-    return entity;
+    return newPosition;
   }
 }
 

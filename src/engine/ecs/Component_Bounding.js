@@ -1,21 +1,18 @@
 class Component_Bounding {
-  #x;
-  #y;
-
   constructor(params) {
-    this.#x = params.x ? params.x : 64;
-    this.#y = params.y ? params.y : 64;
+    this._x = params.x ? params.x : 64;
+    this._y = params.y ? params.y : 64;
   }
 
-  getEverything() {
+  get everything() {
     return {
-      x: this.#x,
-      y: this.#y,
+      x: this._x,
+      y: this._y,
     };
   }
 
-  getBounding() {
-    return { x: this.#x, y: this.#y };
+  get bounding() {
+    return { x: this._x, y: this._y };
   }
 }
 
