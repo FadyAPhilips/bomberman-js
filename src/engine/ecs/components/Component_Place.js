@@ -1,4 +1,4 @@
-import gameConfig from "../../gameData/gameConfig.json";
+import gameConfig from "../../../gameData/gameConfig.json";
 const config = JSON.parse(JSON.stringify(gameConfig))[0];
 
 class Component_Place {

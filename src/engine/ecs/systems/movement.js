@@ -1,5 +1,5 @@
-import Logger from "../../devTools/logger";
-import COMPONENTS from "../../enums/COMPONENTS";
+import Logger from "../../../devTools/logger";
+import COMPONENTS from "../../../enums/COMPONENTS";
 
 class Movement {
   static updatePosition(ent) {

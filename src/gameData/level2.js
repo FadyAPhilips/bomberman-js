@@ -8,7 +8,7 @@ const EntityList = [
     subtype: ENTITY_SUBTYPES.PLAYER1,
     components: [COMPONENTS.PLACE, COMPONENTS.MOVEMENT, COMPONENTS.BOUNDING],
     [COMPONENTS.MOVEMENT]: {
-      acceleration: { x: 3, y: 2 },
+      acceleration: { x: 2, y: 2 },
       maxVel: { x: 8, y: 8 },
     },
     [COMPONENTS.PLACE]: {

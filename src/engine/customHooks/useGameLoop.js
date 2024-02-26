@@ -4,9 +4,9 @@ import Logger from "../../devTools/logger";
 import { setEntities } from "../../redux/slices/levelDataSlice";
 import { setCameraPosition } from "../../redux/slices/cameraSlice";
 import { togglePause, resetToggler } from "../../redux/slices/pauseSlice";
-import Camera from "../helperClasses/camera";
-import Movement from "../helperClasses/movement";
-import Physics from "../helperClasses/physics";
+import Camera from "../ecs/systems/camera";
+import Movement from "../ecs/systems/movement";
+import Physics from "../ecs/systems/physics";
 import gameConfig from "../../gameData/gameConfig.json";
 import ENTITY_CLASSES from "../../enums/ENTITY_CLASSES";
 import ClassBuilder from "../helperClasses/ClassBuilder";
@@ -49,17 +49,17 @@ const useGameLoop = () => {
           newPosition = Movement.decelerate(entity);
 
           //camera Controls on Player
-          // if (cameraState.type === "follow-box") {
-          //   const camera = Camera.followBoxCamera(
-          //     entity,
-          //     config.gameWindow,
-          //     cameraState,
-          //     levelData.gridSizeX,
-          //     levelData.gridSizeY,
-          //     config.gridCellSize
-          //   );
-          //   dispatch(setCameraPosition(camera));
-          // }
+          if (cameraState.type === "follow-box") {
+            const camera = Camera.followBoxCamera(
+              entity,
+              config.gameWindow,
+              cameraState,
+              levelData.gridSizeX,
+              levelData.gridSizeY,
+              config.gridCellSize
+            );
+            dispatch(setCameraPosition(camera));
+          }
           // entity = Movement.updatePosition(entity);
           //update Collisions of Player entity
           // entityList.forEach((entity2, i) => {

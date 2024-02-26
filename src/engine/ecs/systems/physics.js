@@ -1,4 +1,4 @@
-import Logger from "../../devTools/logger";
+import Logger from "../../../devTools/logger";
 
 class Physics {
   static getCenterPosition(entity) {
