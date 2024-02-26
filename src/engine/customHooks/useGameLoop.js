@@ -60,17 +60,14 @@ const useGameLoop = () => {
             );
             dispatch(setCameraPosition(camera));
           }
-          // entity = Movement.updatePosition(entity);
           //update Collisions of Player entity
-          // entityList.forEach((entity2, i) => {
-          //   if (entity2.class === "block") {
-          //     let overlap = Physics.getOverlap(entity, entity2);
-          //     if (overlap.x > 0 && overlap.y > 0) {
-          //       // console.log("OVERLAP");
-          //       entity = Physics.wallCollision(entity, entity2, overlap);
-          //     }
-          //   }
-          // });
+          entityList[ENTITY_CLASSES.BLOCK].forEach((entity2, i) => {
+            let overlap = Physics.getOverlap(entity, entity2);
+            if (overlap.x > 0 && overlap.y > 0) {
+              console.log("OVERLAP");
+              // entity = Physics.wallCollision(entity, entity2, overlap);
+            }
+          });
 
           newEntityList[entity.class].push(entity.toPlainObject());
         });
