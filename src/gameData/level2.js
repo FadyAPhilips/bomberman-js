@@ -19,6 +19,46 @@ const EntityList = [
   },
   {
     class: ENTITY_CLASSES.BLOCK,
+    subtype: ENTITY_SUBTYPES.WALL_BLOCK,
+    components: [COMPONENTS.PLACE, COMPONENTS.BOUNDING],
+    [COMPONENTS.PLACE]: {
+      pos: { x: 1, y: 1 },
+      size: { x: 64, y: 64 },
+    },
+    [COMPONENTS.BOUNDING]: { x: 64, y: 64 },
+  },
+  {
+    class: ENTITY_CLASSES.BLOCK,
+    subtype: ENTITY_SUBTYPES.WALL_BLOCK,
+    components: [COMPONENTS.PLACE, COMPONENTS.BOUNDING],
+    [COMPONENTS.PLACE]: {
+      pos: { x: 1, y: 2 },
+      size: { x: 64, y: 64 },
+    },
+    [COMPONENTS.BOUNDING]: { x: 64, y: 64 },
+  },
+  {
+    class: ENTITY_CLASSES.BLOCK,
+    subtype: ENTITY_SUBTYPES.WALL_BLOCK,
+    components: [COMPONENTS.PLACE, COMPONENTS.BOUNDING],
+    [COMPONENTS.PLACE]: {
+      pos: { x: 1, y: 3 },
+      size: { x: 64, y: 64 },
+    },
+    [COMPONENTS.BOUNDING]: { x: 64, y: 64 },
+  },
+  {
+    class: ENTITY_CLASSES.BLOCK,
+    subtype: ENTITY_SUBTYPES.WALL_BLOCK,
+    components: [COMPONENTS.PLACE, COMPONENTS.BOUNDING],
+    [COMPONENTS.PLACE]: {
+      pos: { x: 2, y: 1 },
+      size: { x: 64, y: 64 },
+    },
+    [COMPONENTS.BOUNDING]: { x: 64, y: 64 },
+  },
+  {
+    class: ENTITY_CLASSES.BLOCK,
     subtype: ENTITY_SUBTYPES.BRICKS,
     components: [COMPONENTS.PLACE, COMPONENTS.BOUNDING],
     [COMPONENTS.PLACE]: {
@@ -32,7 +72,37 @@ const EntityList = [
     subtype: ENTITY_SUBTYPES.WALL_BLOCK,
     components: [COMPONENTS.PLACE, COMPONENTS.BOUNDING],
     [COMPONENTS.PLACE]: {
-      pos: { x: 1, y: 1 },
+      pos: { x: 8, y: 4 },
+      size: { x: 64, y: 64 },
+    },
+    [COMPONENTS.BOUNDING]: { x: 64, y: 64 },
+  },
+  {
+    class: ENTITY_CLASSES.BLOCK,
+    subtype: ENTITY_SUBTYPES.WALL_BLOCK,
+    components: [COMPONENTS.PLACE, COMPONENTS.BOUNDING],
+    [COMPONENTS.PLACE]: {
+      pos: { x: 8, y: 6 },
+      size: { x: 64, y: 64 },
+    },
+    [COMPONENTS.BOUNDING]: { x: 64, y: 64 },
+  },
+  {
+    class: ENTITY_CLASSES.BLOCK,
+    subtype: ENTITY_SUBTYPES.WALL_BLOCK,
+    components: [COMPONENTS.PLACE, COMPONENTS.BOUNDING],
+    [COMPONENTS.PLACE]: {
+      pos: { x: 10, y: 4 },
+      size: { x: 64, y: 64 },
+    },
+    [COMPONENTS.BOUNDING]: { x: 64, y: 64 },
+  },
+  {
+    class: ENTITY_CLASSES.BLOCK,
+    subtype: ENTITY_SUBTYPES.WALL_BLOCK,
+    components: [COMPONENTS.PLACE, COMPONENTS.BOUNDING],
+    [COMPONENTS.PLACE]: {
+      pos: { x: 17, y: 10 },
       size: { x: 64, y: 64 },
     },
     [COMPONENTS.BOUNDING]: { x: 64, y: 64 },

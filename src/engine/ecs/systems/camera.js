@@ -26,8 +26,10 @@ class Camera {
     }
 
     if (entityPoxY > window.height + cameraPosY - window.height / 3) {
+      //move down
       cameraPosY = entityPoxY - window.height + window.height / 3;
     } else if (entityPoxY < cameraPosY + window.height / 3) {
+      //move up
       cameraPosY = entityPoxY - window.height / 3;
     }
 
