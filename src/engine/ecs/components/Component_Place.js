@@ -48,10 +48,14 @@ class Component_Place {
     return this._prevPos;
   }
 
+  set prevPosition(newPos) {
+    this._prevPos = newPos;
+  }
+
   set position(newPos) {
-    this._prevPos = this._pos;
-    this._pos.x = newPos.x;
-    this._pos.y = newPos.y;
+    const currentP = { ...this._pos };
+    this.prevPosition = currentP;
+    this._pos = newPos;
   }
 }
 

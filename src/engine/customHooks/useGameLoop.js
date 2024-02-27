@@ -30,23 +30,22 @@ const useGameLoop = () => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       if (!pauseState.pauseStatus) {
-        // console.log("GameFrame", "Game Frame");
+        console.log("GameFrame", "Game Frame");
         entityList[ENTITY_CLASSES.PC].forEach((entity) => {
           //update player movement controls
           let newPosition = entity.getComponent(COMPONENTS.PLACE).position;
           if (controlsList.moveRight) {
-            newPosition = Movement.moveRight(entity);
+            Movement.moveRight(entity);
           }
           if (controlsList.moveLeft) {
-            newPosition = Movement.moveLeft(entity);
+            Movement.moveLeft(entity);
           }
           if (controlsList.moveUp) {
-            newPosition = Movement.moveUp(entity);
+            Movement.moveUp(entity);
           }
           if (controlsList.moveDown) {
-            newPosition = Movement.moveDown(entity);
+            Movement.moveDown(entity);
           }
-          newPosition = Movement.decelerate(entity);
 
           //camera Controls on Player
           if (cameraState.type === "follow-box") {
@@ -61,13 +60,16 @@ const useGameLoop = () => {
             dispatch(setCameraPosition(camera));
           }
           //update Collisions of Player entity
+
           entityList[ENTITY_CLASSES.BLOCK].forEach((entity2, i) => {
             let overlap = Physics.getOverlap(entity, entity2);
             if (overlap.x > 0 && overlap.y > 0) {
-              console.log("OVERLAP");
-              // entity = Physics.wallCollision(entity, entity2, overlap);
+              // console.log("OVERLAP");
+              Physics.wallCollision(entity, entity2, overlap);
             }
           });
+
+          Movement.decelerate(entity);
 
           newEntityList[entity.class].push(entity.toPlainObject());
         });

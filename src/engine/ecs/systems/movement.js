@@ -74,12 +74,12 @@ class Movement {
       }
     }
     eMovement.velocity = newV;
-    const newPosition = entity.getComponent(COMPONENTS.PLACE).position;
+    const newPosition = { ...entity.getComponent(COMPONENTS.PLACE).position };
     newPosition.x += eMovement.velocity.x;
+
     newPosition.y += eMovement.velocity.y;
     entity.getComponent(COMPONENTS.PLACE).position = newPosition;
-
-    return newPosition;
+    console.log("===============================================");
   }
 
   static moveRight(entity) {
@@ -88,12 +88,11 @@ class Movement {
     const newXV = oldV.x + eMovement.acceleration.x;
     eMovement.velocity = { x: newXV, y: oldV.y };
 
-    const newPosition = entity.getComponent(COMPONENTS.PLACE).position;
-    newPosition.x += eMovement.velocity.x;
-    newPosition.y += eMovement.velocity.y;
-    // entity.getComponent(COMPONENTS.PLACE).position = newPosition;
+    // const newPosition = { ...entity.getComponent(COMPONENTS.PLACE).position };
+    // newPosition.x += eMovement.velocity.x;
+    // newPosition.y += eMovement.velocity.y;
 
-    return newPosition;
+    // return newPosition;
   }
 
   static moveLeft(entity) {
@@ -102,12 +101,11 @@ class Movement {
     const newXV = oldV.x - eMovement.acceleration.x;
     eMovement.velocity = { x: newXV, y: oldV.y };
 
-    const newPosition = entity.getComponent(COMPONENTS.PLACE).position;
-    newPosition.x += eMovement.velocity.x;
-    newPosition.y += eMovement.velocity.y;
-    // entity.getComponent(COMPONENTS.PLACE).position = newPosition;
+    // const newPosition = entity.getComponent(COMPONENTS.PLACE).position;
+    // newPosition.x += eMovement.velocity.x;
+    // newPosition.y += eMovement.velocity.y;
 
-    return newPosition;
+    // return newPosition;
   }
 
   static moveUp(entity) {
@@ -116,12 +114,11 @@ class Movement {
     const newYV = oldV.y - eMovement.acceleration.y;
     eMovement.velocity = { x: oldV.x, y: newYV };
 
-    const newPosition = entity.getComponent(COMPONENTS.PLACE).position;
-    newPosition.x += eMovement.velocity.x;
-    newPosition.y += eMovement.velocity.y;
-    // entity.getComponent(COMPONENTS.PLACE).position = newPosition;
+    // const newPosition = entity.getComponent(COMPONENTS.PLACE).position;
+    // newPosition.x += eMovement.velocity.x;
+    // newPosition.y += eMovement.velocity.y;
 
-    return newPosition;
+    // return newPosition;
   }
 
   static moveDown(entity) {
@@ -130,12 +127,11 @@ class Movement {
     const newYV = oldV.y + eMovement.acceleration.y;
     eMovement.velocity = { x: oldV.x, y: newYV };
 
-    const newPosition = entity.getComponent(COMPONENTS.PLACE).position;
-    newPosition.x += eMovement.velocity.x;
-    newPosition.y += eMovement.velocity.y;
-    // entity.getComponent(COMPONENTS.PLACE).position = newPosition;
+    // const newPosition = entity.getComponent(COMPONENTS.PLACE).position;
+    // newPosition.x += eMovement.velocity.x;
+    // newPosition.y += eMovement.velocity.y;
 
-    return newPosition;
+    // return newPosition;
   }
 }
 
