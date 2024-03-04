@@ -79,7 +79,6 @@ class Movement {
 
     newPosition.y += eMovement.velocity.y;
     entity.getComponent(COMPONENTS.PLACE).position = newPosition;
-    console.log("===============================================");
   }
 
   static moveRight(entity) {

@@ -30,7 +30,7 @@ const useGameLoop = () => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       if (!pauseState.pauseStatus) {
-        console.log("GameFrame", "Game Frame");
+        console.log("================== Game Frame ==================");
         entityList[ENTITY_CLASSES.PC].forEach((entity) => {
           //update player movement controls
           let newPosition = entity.getComponent(COMPONENTS.PLACE).position;
