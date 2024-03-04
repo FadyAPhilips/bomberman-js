@@ -8,6 +8,8 @@ export const DevSettingState = createSlice({
     devSetting: {
       borderToggle: false,
       gameGridToggle: false,
+      HUDBorderToggle: false,
+      HideHUD: false,
     },
   },
   reducers: {

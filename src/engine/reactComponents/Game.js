@@ -9,6 +9,7 @@ import useGameLoop from "../customHooks/useGameLoop";
 
 import GameGrid from "./GameGrid";
 import Entity from "./Entity";
+import HUDItem from "./HUDItem";
 
 import ClassBuilder from "../helperClasses/ClassBuilder";
 
@@ -18,6 +19,7 @@ const GameWindow = styled.div`
   overflow: hidden;
   margin: 30px;
   background-color: green;
+  position: relative;
 `;
 
 function Game() {
@@ -28,6 +30,7 @@ function Game() {
   const entityPlainObj = levelData.entityList;
 
   const entityList = ClassBuilder.entityListFromPlainObj(entityPlainObj);
+  const devSettings = useSelector((state) => state.DevSettingState.devSetting);
 
   useGameInputHandler();
   useGameLoop();
@@ -70,9 +73,28 @@ function Game() {
     return { width: windowWidth, height: windowHeight };
   };
 
+  const loadHUD = () => {
+    if (!devSettings.HideHUD) {
+      return (
+        <>
+          <HUDItem top={30} left={30} size={{ x: 50, y: 300 }}>
+            HUD 1
+          </HUDItem>
+          <HUDItem bottom={30} right={30} size={{ x: 300, y: 64 }}>
+            HUD 2
+          </HUDItem>
+          <HUDItem top={30} right={30} size={{ x: 300, y: 64 }}>
+            HUD 3
+          </HUDItem>
+        </>
+      );
+    }
+  };
+
   return (
     <GameWindow gameWindow={calcGameWindowSize()}>
       <GameGrid>{loadEntities(entityList)}</GameGrid>
+      {loadHUD()}
     </GameWindow>
   );
 }
