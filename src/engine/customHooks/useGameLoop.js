@@ -9,7 +9,7 @@ import Movement from "../ecs/systems/movement";
 import Physics from "../ecs/systems/physics";
 import gameConfig from "../../gameData/gameConfig.json";
 import ENTITY_CLASSES from "../../enums/ENTITY_CLASSES";
-import ClassBuilder from "../helperClasses/ClassBuilder";
+import EntityManager from "../ecs/systems/EntityManager";
 import COMPONENTS from "../../enums/COMPONENTS";
 
 const useGameLoop = () => {
@@ -21,7 +21,7 @@ const useGameLoop = () => {
   const config = JSON.parse(JSON.stringify(gameConfig))[0];
 
   const entityPlainObj = levelData.entityList;
-  const entityList = ClassBuilder.entityListFromPlainObj(entityPlainObj);
+  const entityList = EntityManager.entityListFromPlainObj(entityPlainObj);
   const newEntityList = {};
   Object.values(ENTITY_CLASSES).forEach((element) => {
     newEntityList[element] = [];

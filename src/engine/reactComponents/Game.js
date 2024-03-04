@@ -11,7 +11,7 @@ import GameGrid from "./GameGrid";
 import Entity from "./Entity";
 import HUDItem from "./HUDItem";
 
-import ClassBuilder from "../helperClasses/ClassBuilder";
+import EntityManager from "../ecs/systems/EntityManager";
 
 const GameWindow = styled.div`
   width: ${(props) => props.gameWindow.width}px;
@@ -29,7 +29,7 @@ function Game() {
 
   const entityPlainObj = levelData.entityList;
 
-  const entityList = ClassBuilder.entityListFromPlainObj(entityPlainObj);
+  const entityList = EntityManager.entityListFromPlainObj(entityPlainObj);
   const devSettings = useSelector((state) => state.DevSettingState.devSetting);
 
   useGameInputHandler();
