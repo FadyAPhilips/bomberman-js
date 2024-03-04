@@ -4,7 +4,7 @@ import CONTROLS from "../../gameData/controlsMap";
 const initialControls = {};
 
 Object.values(CONTROLS).forEach((control) => {
-  initialControls[control] = false;
+  initialControls[control] = { state: false, switch: true };
 });
 
 export const inputsState = createSlice({
@@ -12,14 +12,25 @@ export const inputsState = createSlice({
   initialState: initialControls,
   reducers: {
     setInputToTrue: (state, action) => {
-      state[action.payload] = true;
+      state[action.payload].state = true;
     },
     setInputToFalse: (state, action) => {
-      state[action.payload] = false;
+      state[action.payload].state = false;
+    },
+    resetInputSwitch: (state, action) => {
+      state[action.payload].switch = true;
+    },
+    setInputSwitch: (state, action) => {
+      state[action.payload].switch = false;
     },
   },
 });
 
-export const { setInputToTrue, setInputToFalse } = inputsState.actions;
+export const {
+  setInputToTrue,
+  setInputToFalse,
+  setInputSwitch,
+  resetInputSwitch,
+} = inputsState.actions;
 
 export default inputsState.reducer;

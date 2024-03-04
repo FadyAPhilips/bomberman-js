@@ -4,6 +4,7 @@ import Logger from "../../devTools/logger";
 import { setEntities } from "../../redux/slices/levelDataSlice";
 import { setCameraPosition } from "../../redux/slices/cameraSlice";
 import { togglePause, resetToggler } from "../../redux/slices/pauseSlice";
+import { setInputSwitch } from "../../redux/slices/inputsSlice";
 import Camera from "../ecs/systems/camera";
 import Movement from "../ecs/systems/movement";
 import Physics from "../ecs/systems/physics";
@@ -34,17 +35,22 @@ const useGameLoop = () => {
         entityList[ENTITY_CLASSES.PC].forEach((entity) => {
           //update player movement controls
           let newPosition = entity.getComponent(COMPONENTS.PLACE).position;
-          if (controlsList.moveRight) {
+          if (controlsList.moveRight.state) {
             Movement.moveRight(entity);
           }
-          if (controlsList.moveLeft) {
+          if (controlsList.moveLeft.state) {
             Movement.moveLeft(entity);
           }
-          if (controlsList.moveUp) {
+          if (controlsList.moveUp.state) {
             Movement.moveUp(entity);
           }
-          if (controlsList.moveDown) {
+          if (controlsList.moveDown.state) {
             Movement.moveDown(entity);
+          }
+
+          if (controlsList.action.state && controlsList.action.switch) {
+            console.log("ACTION");
+            dispatch(setInputSwitch("action"));
           }
 
           //camera Controls on Player
@@ -88,7 +94,7 @@ const useGameLoop = () => {
         dispatch(setEntities(newEntityList));
       }
 
-      if (controlsList.pause) {
+      if (controlsList.pause.state) {
         if (pauseState.pauseToggler) {
           dispatch(togglePause());
         }

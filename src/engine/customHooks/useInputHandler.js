@@ -4,6 +4,7 @@ import Logger from "../../devTools/logger";
 import {
   setInputToTrue,
   setInputToFalse,
+  resetInputSwitch,
 } from "../../redux/slices/inputsSlice";
 import CONTROLS from "../../gameData/controlsMap";
 
@@ -12,6 +13,9 @@ const useGameInputHandler = () => {
 
   const handleInputs = (event) => {
     if (event.type === "keydown") {
+      if (event.key === " ") {
+        event.preventDefault();
+      }
       if (CONTROLS[event.code]) {
         Logger.log("Controls", CONTROLS[event.code]);
         dispatch(setInputToTrue(CONTROLS[event.code]));
@@ -22,6 +26,7 @@ const useGameInputHandler = () => {
     if (event.type === "keyup") {
       if (CONTROLS[event.code]) {
         dispatch(setInputToFalse(CONTROLS[event.code]));
+        dispatch(resetInputSwitch(CONTROLS[event.code]));
       }
     }
   };
