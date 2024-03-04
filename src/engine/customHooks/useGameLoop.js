@@ -10,6 +10,7 @@ import Movement from "../ecs/systems/movement";
 import Physics from "../ecs/systems/physics";
 import gameConfig from "../../gameData/gameConfig.json";
 import ENTITY_CLASSES from "../../enums/ENTITY_CLASSES";
+import ENTITY_SUBTYPES from "../../enums/ENTITY_SUBTYPES";
 import EntityManager from "../ecs/systems/EntityManager";
 import COMPONENTS from "../../enums/COMPONENTS";
 
@@ -23,7 +24,7 @@ const useGameLoop = () => {
 
   const entityPlainObj = levelData.entityList;
   const entityList = EntityManager.entityListFromPlainObj(entityPlainObj);
-  const newEntityList = {};
+  let newEntityList = {};
   Object.values(ENTITY_CLASSES).forEach((element) => {
     newEntityList[element] = [];
   });
@@ -34,7 +35,7 @@ const useGameLoop = () => {
         console.log("================== Game Frame ==================");
         entityList[ENTITY_CLASSES.PC].forEach((entity) => {
           //update player movement controls
-          let newPosition = entity.getComponent(COMPONENTS.PLACE).position;
+
           if (controlsList.moveRight.state) {
             Movement.moveRight(entity);
           }
@@ -51,6 +52,24 @@ const useGameLoop = () => {
           if (controlsList.action.state && controlsList.action.switch) {
             console.log("ACTION");
             dispatch(setInputSwitch("action"));
+
+            let newPosition = entity.getComponent(
+              COMPONENTS.PLACE
+            ).gridPosition;
+
+            const newEntity = {
+              class: ENTITY_CLASSES.BLOCK,
+              subtype: ENTITY_SUBTYPES.WALL_BLOCK,
+              components: [COMPONENTS.PLACE, COMPONENTS.BOUNDING],
+              [COMPONENTS.PLACE]: {
+                pos: { x: newPosition.x, y: newPosition.y },
+                size: { x: 64, y: 64 },
+              },
+              [COMPONENTS.BOUNDING]: { x: 64, y: 64 },
+            };
+
+            const newList = { ...newEntityList };
+            newEntityList = EntityManager.createEntity(newList, newEntity);
           }
 
           //camera Controls on Player
