@@ -3,7 +3,11 @@ import { useSelector, useDispatch } from "react-redux";
 import Logger from "../../devTools/logger";
 import { setEntities } from "../../redux/slices/levelDataSlice";
 import { setCameraPosition } from "../../redux/slices/cameraSlice";
-import { togglePause, resetToggler } from "../../redux/slices/pauseSlice";
+import {
+  togglePause,
+  resetToggler,
+  incrementFrame,
+} from "../../redux/slices/gameStateSlice";
 import { setInputSwitch } from "../../redux/slices/inputsSlice";
 import Camera from "../ecs/systems/camera";
 import Movement from "../ecs/systems/movement";
@@ -16,10 +20,10 @@ import COMPONENTS from "../../enums/COMPONENTS";
 
 const useGameLoop = () => {
   const dispatch = useDispatch();
+  const gameState = useSelector((state) => state.gameState);
   const levelData = useSelector((state) => state.levelState);
   const controlsList = useSelector((state) => state.inputsState);
   const cameraState = useSelector((state) => state.cameraState);
-  const pauseState = useSelector((state) => state.pauseState);
   const config = JSON.parse(JSON.stringify(gameConfig))[0];
 
   const entityPlainObj = levelData.entityList;
@@ -31,8 +35,9 @@ const useGameLoop = () => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      if (!pauseState.pauseStatus) {
+      if (!gameState.pauseStatus) {
         console.log("================== Game Frame ==================");
+        console.log(gameState.frameCount);
         entityList[ENTITY_CLASSES.PC].forEach((entity) => {
           //update player movement controls
 
@@ -114,7 +119,7 @@ const useGameLoop = () => {
       }
 
       if (controlsList.pause.state) {
-        if (pauseState.pauseToggler) {
+        if (gameState.pauseToggler) {
           dispatch(togglePause());
         }
       } else {
@@ -123,7 +128,7 @@ const useGameLoop = () => {
     }, 16.67);
 
     return () => clearInterval(intervalId);
-  }, [entityList, pauseState, dispatch, controlsList]);
+  }, [entityList, gameState, dispatch, controlsList]);
 };
 
 export default useGameLoop;

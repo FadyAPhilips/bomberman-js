@@ -3,7 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import levelReducer from "./slices/levelDataSlice";
 import inputsReducer from "./slices/inputsSlice";
 import cameraReducer from "./slices/cameraSlice";
-import pauseReducer from "./slices/pauseSlice";
+import gameReducer from "./slices/gameStateSlice";
 import DevSettingReducer from "./slices/DevToolsSettingsSlice";
 
 export default configureStore({
@@ -11,7 +11,7 @@ export default configureStore({
     levelState: levelReducer,
     inputsState: inputsReducer,
     cameraState: cameraReducer,
-    pauseState: pauseReducer,
+    gameState: gameReducer,
     DevSettingState: DevSettingReducer,
   },
 });
