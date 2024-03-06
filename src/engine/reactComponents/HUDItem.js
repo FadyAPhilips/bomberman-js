@@ -12,6 +12,7 @@ const Item = styled.div`
   right: ${(props) => props.right}px;
   height: ${(props) => props.sizeY}px;
   width: ${(props) => props.sizeX}px;
+  user-select: none;
 `;
 
 function HUDItem(props) {

@@ -16,6 +16,7 @@ const GridItem = styled.div`
   top: ${(props) => props.posy}px;
   height: ${(props) => props.sizeY}px;
   width: ${(props) => props.sizeX}px;
+  user-select: none;
 `;
 
 const Sprite = styled.img`
@@ -64,6 +65,7 @@ function Entity(props) {
         src={currentAnimationImage}
         height={entitySize.y}
         width={entitySize.x}
+        draggable="false"
       ></Sprite>
     </GridItem>
   );
