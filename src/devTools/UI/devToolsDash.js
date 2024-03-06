@@ -26,6 +26,7 @@ function DevToolsDash() {
   const dispatch = useDispatch();
   const devSettings = useSelector((state) => state.DevSettingState.devSetting);
   const loggerSettings = useSelector((state) => state.DevSettingState.logger);
+  const gameState = useSelector((state) => state.gameState);
 
   const changeLoggerState = (setting) => {
     dispatch(toggleLoggerSetting(setting));
@@ -55,6 +56,7 @@ function DevToolsDash() {
   return (
     <DevTools>
       <h1>Dev Tools</h1>
+      <div>FPS: {gameState.frameRate}</div>
       <h2>Dev Settings</h2>
       <TogglersDiv>{devSettingsTogglers}</TogglersDiv>
       <h2>Logger Settings</h2>

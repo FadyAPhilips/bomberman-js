@@ -7,6 +7,7 @@ import {
   togglePause,
   resetToggler,
   incrementFrame,
+  calculateFrameRate,
 } from "../../redux/slices/gameStateSlice";
 import { setInputSwitch } from "../../redux/slices/inputsSlice";
 import Camera from "../ecs/systems/camera";
@@ -185,6 +186,9 @@ const useGameLoop = () => {
         });
 
         dispatch(setEntities(newEntityList));
+        if (gameState.frameCount % 20 === 0) {
+          dispatch(calculateFrameRate());
+        }
         dispatch(incrementFrame());
       }
 
