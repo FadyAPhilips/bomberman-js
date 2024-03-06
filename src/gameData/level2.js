@@ -100,12 +100,13 @@ const EntityList = [
   {
     class: ENTITY_CLASSES.BLOCK,
     subtype: ENTITY_SUBTYPES.WALL_BLOCK,
-    components: [COMPONENTS.PLACE, COMPONENTS.BOUNDING],
+    components: [COMPONENTS.PLACE, COMPONENTS.BOUNDING, COMPONENTS.LIFESPAN],
     [COMPONENTS.PLACE]: {
       pos: { x: 17, y: 10 },
       size: { x: 64, y: 64 },
     },
     [COMPONENTS.BOUNDING]: { x: 64, y: 64 },
+    [COMPONENTS.LIFESPAN]: { birthFrame: 0, lifespan: 600 },
   },
 ];
 

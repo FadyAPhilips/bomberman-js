@@ -1,16 +1,18 @@
 import COMPONENTS from "../../enums/COMPONENTS";
 
 class Entity {
-  constructor(type, subtype) {
+  constructor(type, subtype, alive) {
     this._class = type;
     this._subtype = subtype;
     this._components = [];
+    this._alive = alive ? alive : true;
   }
 
   toPlainObject() {
     const obj = {
       class: this._class,
       subtype: this._subtype,
+      alive: this._alive,
       components: [],
     };
     this._components.forEach((component) => {
@@ -43,6 +45,14 @@ class Entity {
 
   get subtype() {
     return this._subtype;
+  }
+
+  get alive() {
+    return this._alive;
+  }
+
+  destroyEntity() {
+    this._alive = false;
   }
 }
 

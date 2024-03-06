@@ -37,7 +37,7 @@ const useGameLoop = () => {
     const intervalId = setInterval(() => {
       if (!gameState.pauseStatus) {
         console.log("================== Game Frame ==================");
-        console.log(gameState.frameCount);
+
         entityList[ENTITY_CLASSES.PC].forEach((entity) => {
           //update player movement controls
 
@@ -65,12 +65,20 @@ const useGameLoop = () => {
             const newEntity = {
               class: ENTITY_CLASSES.BLOCK,
               subtype: ENTITY_SUBTYPES.WALL_BLOCK,
-              components: [COMPONENTS.PLACE, COMPONENTS.BOUNDING],
+              components: [
+                COMPONENTS.PLACE,
+                COMPONENTS.BOUNDING,
+                COMPONENTS.LIFESPAN,
+              ],
               [COMPONENTS.PLACE]: {
                 pos: { x: newPosition.x, y: newPosition.y },
                 size: { x: 64, y: 64 },
               },
               [COMPONENTS.BOUNDING]: { x: 64, y: 64 },
+              [COMPONENTS.LIFESPAN]: {
+                birthFrame: gameState.frameCount,
+                lifespan: 210,
+              },
             };
 
             const newList = { ...newEntityList };
@@ -101,21 +109,83 @@ const useGameLoop = () => {
 
           Movement.decelerate(entity);
 
-          newEntityList[entity.class].push(entity.toPlainObject());
+          //check entity lifespan
+          if (entity.getComponent(COMPONENTS.LIFESPAN)) {
+            const lifeTime = entity
+              .getComponent(COMPONENTS.LIFESPAN)
+              .checkLifeTime(gameState.frameCount);
+            if (lifeTime === 0) {
+              entity.destroyEntity();
+            }
+          }
+
+          if (entity.alive) {
+            newEntityList[entity.class].push(entity.toPlainObject());
+          }
         });
         entityList[ENTITY_CLASSES.NPC].forEach((entity) => {
-          newEntityList[entity.class].push(entity.toPlainObject());
+          //check entity lifespan
+          if (entity.getComponent(COMPONENTS.LIFESPAN)) {
+            const lifeTime = entity
+              .getComponent(COMPONENTS.LIFESPAN)
+              .checkLifeTime(gameState.frameCount);
+            if (lifeTime === 0) {
+              entity.destroyEntity();
+            }
+          }
+
+          if (entity.alive) {
+            newEntityList[entity.class].push(entity.toPlainObject());
+          }
         });
         entityList[ENTITY_CLASSES.ITEM].forEach((entity) => {
-          newEntityList[entity.class].push(entity.toPlainObject());
+          //check entity lifespan
+          if (entity.getComponent(COMPONENTS.LIFESPAN)) {
+            const lifeTime = entity
+              .getComponent(COMPONENTS.LIFESPAN)
+              .checkLifeTime(gameState.frameCount);
+            if (lifeTime === 0) {
+              entity.destroyEntity();
+            }
+          }
+
+          if (entity.alive) {
+            newEntityList[entity.class].push(entity.toPlainObject());
+          }
         });
         entityList[ENTITY_CLASSES.BLOCK].forEach((entity) => {
-          newEntityList[entity.class].push(entity.toPlainObject());
+          //check entity lifespan
+          if (entity.getComponent(COMPONENTS.LIFESPAN)) {
+            const lifeTime = entity
+              .getComponent(COMPONENTS.LIFESPAN)
+              .checkLifeTime(gameState.frameCount);
+            if (lifeTime === 0) {
+              entity.destroyEntity();
+            }
+          }
+
+          if (entity.alive) {
+            newEntityList[entity.class].push(entity.toPlainObject());
+          }
         });
         entityList[ENTITY_CLASSES.DECORATION].forEach((entity) => {
-          newEntityList[entity.class].push(entity.toPlainObject());
+          //check entity lifespan
+          if (entity.getComponent(COMPONENTS.LIFESPAN)) {
+            const lifeTime = entity
+              .getComponent(COMPONENTS.LIFESPAN)
+              .checkLifeTime(gameState.frameCount);
+            if (lifeTime === 0) {
+              entity.destroyEntity();
+            }
+          }
+
+          if (entity.alive) {
+            newEntityList[entity.class].push(entity.toPlainObject());
+          }
         });
+
         dispatch(setEntities(newEntityList));
+        dispatch(incrementFrame());
       }
 
       if (controlsList.pause.state) {
