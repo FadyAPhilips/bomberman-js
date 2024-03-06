@@ -22,6 +22,7 @@ import COMPONENTS from "../../enums/COMPONENTS";
 const useGameLoop = () => {
   const dispatch = useDispatch();
   const gameState = useSelector((state) => state.gameState);
+  const devSettings = useSelector((state) => state.DevSettingState.devSetting);
   const levelData = useSelector((state) => state.levelState);
   const controlsList = useSelector((state) => state.inputsState);
   const cameraState = useSelector((state) => state.cameraState);
@@ -98,15 +99,17 @@ const useGameLoop = () => {
             );
             dispatch(setCameraPosition(camera));
           }
-          //update Collisions of Player entity
 
-          entityList[ENTITY_CLASSES.BLOCK].forEach((entity2, i) => {
-            let overlap = Physics.getOverlap(entity, entity2);
-            if (overlap.x > 0 && overlap.y > 0) {
-              // console.log("OVERLAP");
-              Physics.wallCollision(entity, entity2, overlap);
-            }
-          });
+          //update Collisions of Player entity
+          if (devSettings.collisionsToggle) {
+            entityList[ENTITY_CLASSES.BLOCK].forEach((entity2, i) => {
+              let overlap = Physics.getOverlap(entity, entity2);
+              if (overlap.x > 0 && overlap.y > 0) {
+                // console.log("OVERLAP");
+                Physics.wallCollision(entity, entity2, overlap);
+              }
+            });
+          }
 
           Movement.decelerate(entity);
 
