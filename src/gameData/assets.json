@@ -1,19 +1,29 @@
 [
     {
         "player": {
-        "texturePath": "megaman.png",
-        "animationSlices": 1,
-        "SliceTime": 0
-        },
-        "block": {
-            "texturePath": "block.png",
+            "texturePath": "megaman.png",
             "animationSlices": 1,
-            "SliceTime": 0
+            "SliceTime": 0,
+            "framesPerSlice": 1
         },
         "playerJump": {
             "texturePath": "air64.png",
             "animationSlices": 1,
-            "SliceTime": 0
+            "SliceTime": 0,
+            "framesPerSlice": 1
+
+        },
+        "playerRun": {
+            "texturePath": "run64.png",
+            "animationSlices": 4,
+            "SliceTime": 0,
+            "framesPerSlice": 4
+        },
+        "block": {
+            "texturePath": "block.png",
+            "animationSlices": 1,
+            "SliceTime": 0,
+            "framesPerSlice": 1
         }
     }
 ]

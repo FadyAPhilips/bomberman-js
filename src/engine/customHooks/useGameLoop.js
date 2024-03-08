@@ -46,12 +46,15 @@ const useGameLoop = () => {
         entityList[ENTITY_CLASSES.PC].forEach((entity) => {
           //update player movement controls
           const entityAnimation = entity.getComponent(COMPONENTS.ANIMATION);
+          let currentAnimation = entityAnimation.statesList.DEFAULT;
 
           if (controlsList.moveRight.state) {
             Movement.moveRight(entity);
+            currentAnimation = entityAnimation.statesList.RUN;
           }
           if (controlsList.moveLeft.state) {
             Movement.moveLeft(entity);
+            currentAnimation = entityAnimation.statesList.RUN;
           }
           if (controlsList.moveUp.state) {
             Movement.moveUp(entity);
@@ -101,16 +104,6 @@ const useGameLoop = () => {
             newEntityList = EntityManager.createEntity(newList, newEntity);
           }
 
-          //handles player animations
-          if (
-            entity.getComponent(COMPONENTS.MOVEMENT).velocity.y > 0 ||
-            entity.getComponent(COMPONENTS.MOVEMENT).velocity.y < 0
-          ) {
-            entityAnimation.currentState = entityAnimation.statesList.JUMPING;
-          } else {
-            entityAnimation.resetState();
-          }
-
           //camera Controls on Player
           if (cameraState.type === "follow-box") {
             const camera = Camera.followBoxCamera(
@@ -147,6 +140,18 @@ const useGameLoop = () => {
               entity.destroyEntity();
             }
           }
+
+          //handles player animations
+          if (
+            entity.getComponent(COMPONENTS.MOVEMENT).velocity.y > 0 ||
+            entity.getComponent(COMPONENTS.MOVEMENT).velocity.y < 0
+          ) {
+            currentAnimation = entityAnimation.statesList.JUMPING;
+          }
+          entityAnimation.setCurrentState(
+            currentAnimation,
+            gameState.frameCount
+          );
 
           if (entity.alive) {
             newEntityList[entity.class].push(entity.toPlainObject());

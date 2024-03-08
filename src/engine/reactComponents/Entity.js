@@ -21,20 +21,21 @@ const GridItem = styled.div`
 
 const Sprite = styled.img`
   position: relative;
-  object-fit: scale-down;
-  left: 0;
-  top: 0;
+  object-fit: cover;
+  /* left: 0;
+  top: 0; */
+  object-position: ${(props) => props.currentSlice}%;
 `;
 
 function Entity(props) {
   const devSettings = useSelector((state) => state.DevSettingState.devSetting);
+  const gameState = useSelector((state) => state.gameState);
   const entityInstance = props.entityData;
   const entityPosition = entityInstance.getComponent(COMPONENTS.PLACE).position;
   const entitySize = entityInstance.getComponent(COMPONENTS.PLACE).size;
   const entityAnimation = entityInstance.getComponent(COMPONENTS.ANIMATION);
 
-  const currentAnimation =
-    entityAnimation.assetsList[entityAnimation.currentState];
+  const currentAnimation = entityAnimation.currentAsset;
   const currentAnimationImage = require("../../assets/" +
     currentAnimation.texturePath);
 
@@ -52,6 +53,7 @@ function Entity(props) {
         height={entitySize.y}
         width={entitySize.x}
         draggable="false"
+        currentSlice={entityAnimation.getAnimationSlice(gameState.frameCount)}
       ></Sprite>
     </GridItem>
   );

@@ -28,10 +28,12 @@ const EntityList = [
       statesList: {
         DEFAULT: "default",
         JUMPING: "jumping",
+        RUN: "run",
       },
       assetsList: {
         default: assets.player,
         jumping: assets.playerJump,
+        run: assets.playerRun,
       },
     },
   },
