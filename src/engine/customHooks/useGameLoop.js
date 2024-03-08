@@ -44,17 +44,19 @@ const useGameLoop = () => {
         console.log("================== Game Frame ==================");
 
         entityList[ENTITY_CLASSES.PC].forEach((entity) => {
-          //update player movement controls
           const entityAnimation = entity.getComponent(COMPONENTS.ANIMATION);
           let currentAnimation = entityAnimation.statesList.DEFAULT;
 
+          //update player movement controls
           if (controlsList.moveRight.state) {
             Movement.moveRight(entity);
             currentAnimation = entityAnimation.statesList.RUN;
+            entity.getComponent(COMPONENTS.PLACE).directionX = 1;
           }
           if (controlsList.moveLeft.state) {
             Movement.moveLeft(entity);
             currentAnimation = entityAnimation.statesList.RUN;
+            entity.getComponent(COMPONENTS.PLACE).directionX = -1;
           }
           if (controlsList.moveUp.state) {
             Movement.moveUp(entity);
@@ -158,6 +160,9 @@ const useGameLoop = () => {
           }
         });
         entityList[ENTITY_CLASSES.NPC].forEach((entity) => {
+          const entityAnimation = entity.getComponent(COMPONENTS.ANIMATION);
+          let currentAnimation = entityAnimation.statesList.DEFAULT;
+
           //check entity lifespan
           if (entity.getComponent(COMPONENTS.LIFESPAN)) {
             const lifeTime = entity
@@ -167,12 +172,20 @@ const useGameLoop = () => {
               entity.destroyEntity();
             }
           }
+
+          entityAnimation.setCurrentState(
+            currentAnimation,
+            gameState.frameCount
+          );
 
           if (entity.alive) {
             newEntityList[entity.class].push(entity.toPlainObject());
           }
         });
         entityList[ENTITY_CLASSES.ITEM].forEach((entity) => {
+          const entityAnimation = entity.getComponent(COMPONENTS.ANIMATION);
+          let currentAnimation = entityAnimation.statesList.DEFAULT;
+
           //check entity lifespan
           if (entity.getComponent(COMPONENTS.LIFESPAN)) {
             const lifeTime = entity
@@ -182,12 +195,20 @@ const useGameLoop = () => {
               entity.destroyEntity();
             }
           }
+
+          entityAnimation.setCurrentState(
+            currentAnimation,
+            gameState.frameCount
+          );
 
           if (entity.alive) {
             newEntityList[entity.class].push(entity.toPlainObject());
           }
         });
         entityList[ENTITY_CLASSES.BLOCK].forEach((entity) => {
+          const entityAnimation = entity.getComponent(COMPONENTS.ANIMATION);
+          let currentAnimation = entityAnimation.statesList.DEFAULT;
+
           //check entity lifespan
           if (entity.getComponent(COMPONENTS.LIFESPAN)) {
             const lifeTime = entity
@@ -198,11 +219,19 @@ const useGameLoop = () => {
             }
           }
 
+          entityAnimation.setCurrentState(
+            currentAnimation,
+            gameState.frameCount
+          );
+
           if (entity.alive) {
             newEntityList[entity.class].push(entity.toPlainObject());
           }
         });
         entityList[ENTITY_CLASSES.DECORATION].forEach((entity) => {
+          const entityAnimation = entity.getComponent(COMPONENTS.ANIMATION);
+          let currentAnimation = entityAnimation.statesList.DEFAULT;
+
           //check entity lifespan
           if (entity.getComponent(COMPONENTS.LIFESPAN)) {
             const lifeTime = entity
@@ -212,6 +241,11 @@ const useGameLoop = () => {
               entity.destroyEntity();
             }
           }
+
+          entityAnimation.setCurrentState(
+            currentAnimation,
+            gameState.frameCount
+          );
 
           if (entity.alive) {
             newEntityList[entity.class].push(entity.toPlainObject());

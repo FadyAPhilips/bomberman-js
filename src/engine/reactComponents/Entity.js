@@ -22,9 +22,8 @@ const GridItem = styled.div`
 const Sprite = styled.img`
   position: relative;
   object-fit: cover;
-  /* left: 0;
-  top: 0; */
   object-position: ${(props) => props.currentSlice}%;
+  transform: scaleX(${(props) => props.dirX});
 `;
 
 function Entity(props) {
@@ -33,6 +32,7 @@ function Entity(props) {
   const entityInstance = props.entityData;
   const entityPosition = entityInstance.getComponent(COMPONENTS.PLACE).position;
   const entitySize = entityInstance.getComponent(COMPONENTS.PLACE).size;
+  const entityDirX = entityInstance.getComponent(COMPONENTS.PLACE).directionX;
   const entityAnimation = entityInstance.getComponent(COMPONENTS.ANIMATION);
 
   const currentAnimation = entityAnimation.currentAsset;
@@ -54,6 +54,7 @@ function Entity(props) {
         width={entitySize.x}
         draggable="false"
         currentSlice={entityAnimation.getAnimationSlice(gameState.frameCount)}
+        dirX={entityDirX}
       ></Sprite>
     </GridItem>
   );

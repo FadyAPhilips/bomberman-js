@@ -18,6 +18,7 @@ class Component_Place {
           y: (params.pos.y - 1) * config.gridCellSize,
         };
     this._size = params.size ? params.size : { x: 64, y: 64 };
+    this._directionX = params.directionX ? params.directionX : 1;
   }
 
   get everything() {
@@ -25,6 +26,7 @@ class Component_Place {
       newPos: this._pos,
       prevPos: this._prevPos,
       size: this._size,
+      directionX: this._directionX,
     };
   }
 
@@ -56,6 +58,14 @@ class Component_Place {
     const currentP = { ...this._pos };
     this.prevPosition = currentP;
     this._pos = newPos;
+  }
+
+  get directionX() {
+    return this._directionX;
+  }
+
+  set directionX(newDir) {
+    this._directionX = newDir;
   }
 }
 

@@ -38,6 +38,24 @@ const EntityList = [
     },
   },
   {
+    class: ENTITY_CLASSES.ITEM,
+    subtype: ENTITY_SUBTYPES.COIN,
+    components: [COMPONENTS.PLACE, COMPONENTS.BOUNDING, COMPONENTS.ANIMATION],
+    [COMPONENTS.PLACE]: {
+      pos: { x: 21, y: 16 },
+      size: { x: 64, y: 64 },
+    },
+    [COMPONENTS.BOUNDING]: { x: 64, y: 64 },
+    [COMPONENTS.ANIMATION]: {
+      statesList: {
+        DEFAULT: "default",
+      },
+      assetsList: {
+        default: assets.coin,
+      },
+    },
+  },
+  {
     class: ENTITY_CLASSES.BLOCK,
     subtype: ENTITY_SUBTYPES.WALL_BLOCK,
     components: [COMPONENTS.PLACE, COMPONENTS.BOUNDING, COMPONENTS.ANIMATION],
