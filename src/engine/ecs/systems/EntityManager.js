@@ -27,6 +27,17 @@ class EntityManager {
     newEntityList[entity.class].push(entity.toPlainObject());
     return newEntityList;
   }
+
+  static checkEntityLifespan(entity, frameCount) {
+    if (entity.getComponent(COMPONENTS.LIFESPAN)) {
+      const lifeTime = entity
+        .getComponent(COMPONENTS.LIFESPAN)
+        .checkLifeTime(frameCount);
+      if (lifeTime === 0) {
+        entity.destroyEntity();
+      }
+    }
+  }
 }
 
 export default EntityManager;
