@@ -13,11 +13,15 @@ import { setInputSwitch } from "../../redux/slices/inputsSlice";
 import Camera from "../ecs/systems/camera";
 import Movement from "../ecs/systems/movement";
 import Physics from "../ecs/systems/physics";
-import gameConfig from "../../gameData/gameConfig.json";
+import EntityManager from "../ecs/systems/EntityManager";
 import ENTITY_CLASSES from "../../enums/ENTITY_CLASSES";
 import ENTITY_SUBTYPES from "../../enums/ENTITY_SUBTYPES";
-import EntityManager from "../ecs/systems/EntityManager";
 import COMPONENTS from "../../enums/COMPONENTS";
+import gameConfig from "../../gameData/gameConfig.json";
+import assetsMap from "../../gameData/assets.json";
+
+const assets = JSON.parse(JSON.stringify(assetsMap))[0];
+const config = JSON.parse(JSON.stringify(gameConfig))[0];
 
 const useGameLoop = () => {
   const dispatch = useDispatch();
@@ -26,7 +30,6 @@ const useGameLoop = () => {
   const levelData = useSelector((state) => state.levelState);
   const controlsList = useSelector((state) => state.inputsState);
   const cameraState = useSelector((state) => state.cameraState);
-  const config = JSON.parse(JSON.stringify(gameConfig))[0];
 
   const entityPlainObj = levelData.entityList;
   const entityList = EntityManager.entityListFromPlainObj(entityPlainObj);
@@ -42,6 +45,7 @@ const useGameLoop = () => {
 
         entityList[ENTITY_CLASSES.PC].forEach((entity) => {
           //update player movement controls
+          const entityAnimation = entity.getComponent(COMPONENTS.ANIMATION);
 
           if (controlsList.moveRight.state) {
             Movement.moveRight(entity);
@@ -56,6 +60,7 @@ const useGameLoop = () => {
             Movement.moveDown(entity);
           }
 
+          //handles player actions
           if (controlsList.action.state && controlsList.action.switch) {
             console.log("ACTION");
             dispatch(setInputSwitch("action"));
@@ -71,6 +76,7 @@ const useGameLoop = () => {
                 COMPONENTS.PLACE,
                 COMPONENTS.BOUNDING,
                 COMPONENTS.LIFESPAN,
+                COMPONENTS.ANIMATION,
               ],
               [COMPONENTS.PLACE]: {
                 pos: { x: newPosition.x, y: newPosition.y },
@@ -81,10 +87,28 @@ const useGameLoop = () => {
                 birthFrame: gameState.frameCount,
                 lifespan: 210,
               },
+              [COMPONENTS.ANIMATION]: {
+                statesList: {
+                  DEFAULT: "default",
+                },
+                assetsList: {
+                  default: assets.block,
+                },
+              },
             };
 
             const newList = { ...newEntityList };
             newEntityList = EntityManager.createEntity(newList, newEntity);
+          }
+
+          //handles player animations
+          if (
+            entity.getComponent(COMPONENTS.MOVEMENT).velocity.y > 0 ||
+            entity.getComponent(COMPONENTS.MOVEMENT).velocity.y < 0
+          ) {
+            entityAnimation.currentState = entityAnimation.statesList.JUMPING;
+          } else {
+            entityAnimation.resetState();
           }
 
           //camera Controls on Player
@@ -106,7 +130,8 @@ const useGameLoop = () => {
               let overlap = Physics.getOverlap(entity, entity2);
               if (overlap.x > 0 && overlap.y > 0) {
                 // console.log("OVERLAP");
-                Physics.wallCollision(entity, entity2, overlap);
+                entity2.destroyEntity();
+                // Physics.wallCollision(entity, entity2, overlap);
               }
             });
           }

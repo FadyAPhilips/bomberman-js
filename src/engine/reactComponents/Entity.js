@@ -31,24 +31,10 @@ function Entity(props) {
   const entityInstance = props.entityData;
   const entityPosition = entityInstance.getComponent(COMPONENTS.PLACE).position;
   const entitySize = entityInstance.getComponent(COMPONENTS.PLACE).size;
+  const entityAnimation = entityInstance.getComponent(COMPONENTS.ANIMATION);
 
-  const handleAnimations = (entity) => {
-    let currentAnimation;
-
-    if (entity.subtype === "player1") {
-      if (entity.getComponent(COMPONENTS.MOVEMENT).velocity.y != 0) {
-        currentAnimation = assets.playerJump;
-      } else {
-        currentAnimation = assets.player;
-      }
-    } else {
-      currentAnimation = assets.block;
-    }
-
-    return currentAnimation;
-  };
-
-  const currentAnimation = handleAnimations(props.entityData);
+  const currentAnimation =
+    entityAnimation.assetsList[entityAnimation.currentState];
   const currentAnimationImage = require("../../assets/" +
     currentAnimation.texturePath);
 
