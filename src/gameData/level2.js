@@ -129,7 +129,7 @@ const EntityList = [
   },
   {
     class: ENTITY_CLASSES.BLOCK,
-    subtype: ENTITY_SUBTYPES.BRICKS,
+    subtype: ENTITY_SUBTYPES.WALL_BLOCK,
     components: [COMPONENTS.PLACE, COMPONENTS.BOUNDING, COMPONENTS.ANIMATION],
     [COMPONENTS.PLACE]: {
       pos: { x: 25, y: 20 },

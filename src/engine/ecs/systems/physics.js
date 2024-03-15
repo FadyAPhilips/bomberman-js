@@ -2,27 +2,21 @@ import Logger from "../../../devTools/logger";
 import COMPONENTS from "../../../enums/COMPONENTS";
 
 class Physics {
-  static getCenterPosition(entity) {
+  static getCenterPosition(entity, position) {
     const entityPlace = entity.getComponent(COMPONENTS.PLACE);
 
-    const centerX = entityPlace.position.x + entityPlace.size.x / 2;
-    const centerY = entityPlace.position.y + entityPlace.size.y / 2;
+    const centerX = position.x + entityPlace.size.x / 2;
+    const centerY = position.y + entityPlace.size.y / 2;
 
     return { x: centerX, y: centerY };
   }
 
-  static getPreCenterPosition(entity) {
-    const entityPlace = entity.getComponent(COMPONENTS.PLACE);
-
-    const centerX = entityPlace.prevPosition.x + entityPlace.size.x / 2;
-    const centerY = entityPlace.prevPosition.y + entityPlace.size.y / 2;
-
-    return { x: centerX, y: centerY };
-  }
-
-  static getOverlap(entity1, entity2) {
-    const ent1Center = this.getCenterPosition(entity1);
-    const ent2Center = this.getCenterPosition(entity2);
+  static getOverlap(entity1, entity2, currentPosition) {
+    const ent1Center = this.getCenterPosition(entity1, currentPosition);
+    const ent2Center = this.getCenterPosition(
+      entity2,
+      entity2.getComponent(COMPONENTS.PLACE).position
+    );
 
     const deltaX = Math.abs(ent1Center.x - ent2Center.x);
     const deltaY = Math.abs(ent1Center.y - ent2Center.y);
@@ -36,54 +30,84 @@ class Physics {
     return { x: overlapX < 0 ? 0 : overlapX, y: overlapY < 0 ? 0 : overlapY };
   }
 
-  static getPrevOverlap(entity1, entity2) {
-    const ent1Center = this.getPreCenterPosition(entity1);
-    const ent2Center = this.getPreCenterPosition(entity2);
+  static levelEdgeCollision(
+    entity,
+    levelWidth,
+    levelHeight,
+    gridCellSize,
+    currentPosition
+  ) {
+    const levelWidthPix = levelWidth * gridCellSize;
+    const levelHeightPix = levelHeight * gridCellSize;
 
-    const deltaX = Math.abs(ent1Center.x - ent2Center.x);
-    const deltaY = Math.abs(ent1Center.y - ent2Center.y);
+    const entity1Place = entity.getComponent(COMPONENTS.PLACE);
+    const entity1Pos = currentPosition;
+    const entity1Movement = entity.getComponent(COMPONENTS.MOVEMENT);
+    const entity1Vel = { ...entity1Movement.velocity };
 
-    const entity1Bounding = entity1.getComponent(COMPONENTS.BOUNDING).bounding;
-    const entity2Bounding = entity2.getComponent(COMPONENTS.BOUNDING).bounding;
+    if (entity1Pos.x < 0) {
+      entity1Pos.x = 0;
+      entity1Vel.x = 0;
+    } else if (entity1Pos.x > levelWidthPix - entity1Place.size.x) {
+      entity1Pos.x = levelWidthPix - entity1Place.size.x;
+      entity1Vel.x = 0;
+    }
 
-    const overlapX = entity1Bounding.x / 2 + entity2Bounding.x / 2 - deltaX;
-    const overlapY = entity1Bounding.y / 2 + entity2Bounding.y / 2 - deltaY;
+    if (entity1Pos.y < 0) {
+      entity1Pos.y = 0;
+      entity1Vel.y = 0;
+    } else if (entity1Pos.y > levelHeightPix - entity1Place.size.y) {
+      entity1Pos.y = levelHeightPix - entity1Place.size.y;
+      entity1Vel.y = 0;
+    }
 
-    return { x: overlapX < 0 ? 0 : overlapX, y: overlapY < 0 ? 0 : overlapY };
+    if (
+      entity1Movement.velocity.x !== entity1Vel.x ||
+      entity1Movement.velocity.y !== entity1Vel.y
+    ) {
+      entity1Movement.velocity = entity1Vel;
+    }
+
+    return entity1Pos;
   }
 
-  static wallCollision(entity1, entity2, overlap) {
-    const prevOverlap = this.getPrevOverlap(entity1, entity2);
+  static wallCollision(entity1, entity2, currentPosition, overlap) {
     const entity1Place = entity1.getComponent(COMPONENTS.PLACE);
+    const entity2Place = entity2.getComponent(COMPONENTS.PLACE);
+    const entity1Vel = entity1.getComponent(COMPONENTS.MOVEMENT).velocity;
+    let newPos = { ...currentPosition };
 
-    const entity1Pos = { ...entity1Place.position };
-
-    console.log("before", entity1Pos);
-
-    if (prevOverlap.x > 0) {
-      if (entity1Place.prevPosition.x < entity1Pos.x) {
-        entity1Pos.x -= overlap.x;
-        Logger.log("CollisionsDirection", "from left");
-      } else if (entity1Place.prevPosition.x > entity1Pos.x) {
-        entity1Pos.x += overlap.x;
-        Logger.log("CollisionsDirection", "from right");
+    if (overlap.x < overlap.y) {
+      if (entity1Vel.x > 0 && entity2Place.position.x > newPos.x) {
+        newPos.x = entity2Place.position.x - entity1Place.size.x;
+        entity1.getComponent(COMPONENTS.MOVEMENT).velocity = {
+          x: 0,
+          y: entity1Vel.y,
+        };
+      } else if (entity1Vel.x < 0 && entity2Place.position.x < newPos.x) {
+        newPos.x = entity2Place.position.x + entity2Place.size.x;
+        entity1.getComponent(COMPONENTS.MOVEMENT).velocity = {
+          x: 0,
+          y: entity1Vel.y,
+        };
+      }
+    } else if (overlap.x > overlap.y) {
+      if (entity1Vel.y > 0 && entity2Place.position.y > newPos.y) {
+        newPos.y = entity2Place.position.y - entity1Place.size.y;
+        entity1.getComponent(COMPONENTS.MOVEMENT).velocity = {
+          x: entity1Vel.x,
+          y: 0,
+        };
+      } else if (entity1Vel.y < 0 && entity2Place.position.y < newPos.y) {
+        newPos.y = entity2Place.position.y + entity2Place.size.y;
+        entity1.getComponent(COMPONENTS.MOVEMENT).velocity = {
+          x: entity1Vel.x,
+          y: 0,
+        };
       }
     }
-    if (prevOverlap.y > 0) {
-      if (entity1Place.prevPosition.y < entity1Pos.y) {
-        entity1Pos.y -= overlap.y;
-        Logger.log("CollisionsDirection", "from top");
-      } else if (entity1Place.prevPosition.y > entity1Pos.y) {
-        entity1Pos.y += overlap.y;
-        Logger.log("CollisionsDirection", "from bottom");
-      }
-    }
 
-    entity1Place.position = entity1Pos;
-
-    console.log("after", entity1Pos);
-
-    // return entity1Copy;
+    return newPos;
   }
 }
 export default Physics;

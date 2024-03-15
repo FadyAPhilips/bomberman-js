@@ -46,6 +46,9 @@ const useGameLoop = () => {
         entityList[ENTITY_CLASSES.PC].forEach((entity) => {
           const entityAnimation = entity.getComponent(COMPONENTS.ANIMATION);
           let currentAnimation = entityAnimation.statesList.DEFAULT;
+          let currentPosition = {
+            ...entity.getComponent(COMPONENTS.PLACE).position,
+          };
 
           //update player movement controls
           if (controlsList.moveRight.state) {
@@ -64,6 +67,8 @@ const useGameLoop = () => {
           if (controlsList.moveDown.state) {
             Movement.moveDown(entity);
           }
+
+          currentPosition = Movement.decelerate(entity, currentPosition);
 
           //handles player actions
           if (controlsList.action.state && controlsList.action.switch) {
@@ -106,35 +111,51 @@ const useGameLoop = () => {
             newEntityList = EntityManager.createEntity(newList, newEntity);
           }
 
-          //camera Controls on Player
-          if (cameraState.type === "follow-box") {
-            const camera = Camera.followBoxCamera(
-              entity,
-              config.gameWindow,
-              cameraState,
-              levelData.gridSizeX,
-              levelData.gridSizeY,
-              config.gridCellSize
-            );
-            dispatch(setCameraPosition(camera));
-          }
+          //Check Collision with the level bounds.
+          currentPosition = Physics.levelEdgeCollision(
+            entity,
+            levelData.gridSizeX,
+            levelData.gridSizeY,
+            config.gridCellSize,
+            currentPosition
+          );
 
           //update Collisions of Player entity
           if (devSettings.collisionsToggle) {
             entityList[ENTITY_CLASSES.BLOCK].forEach((entity2, i) => {
-              let overlap = Physics.getOverlap(entity, entity2);
+              let overlap = Physics.getOverlap(
+                entity,
+                entity2,
+                currentPosition
+              );
               if (overlap.x > 0 && overlap.y > 0) {
-                // console.log("OVERLAP");
-                entity2.destroyEntity();
-                // Physics.wallCollision(entity, entity2, overlap);
+                currentPosition = Physics.wallCollision(
+                  entity,
+                  entity2,
+                  currentPosition,
+                  overlap
+                );
+              }
+            });
+            entityList[ENTITY_CLASSES.ITEM].forEach((entity2, i) => {
+              let overlap = Physics.getOverlap(
+                entity,
+                entity2,
+                currentPosition
+              );
+              if (overlap.x > 0 && overlap.y > 0) {
+                if (entity2.subtype === ENTITY_SUBTYPES.COIN) {
+                  entity2.destroyEntity();
+                }
               }
             });
           }
 
-          Movement.decelerate(entity);
-
           //check entity lifespan
           EntityManager.checkEntityLifespan(entity, gameState.frameCount);
+
+          //Sets Entity Position
+          entity.getComponent(COMPONENTS.PLACE).position = currentPosition;
 
           //handles player animations
           if (
@@ -148,6 +169,19 @@ const useGameLoop = () => {
             gameState.frameCount
           );
 
+          //camera Controls on Player
+          if (cameraState.type === "follow-box") {
+            const camera = Camera.followBoxCamera(
+              entity,
+              config.gameWindow,
+              cameraState,
+              levelData.gridSizeX,
+              levelData.gridSizeY,
+              config.gridCellSize
+            );
+            dispatch(setCameraPosition(camera));
+          }
+
           if (entity.alive) {
             newEntityList[entity.class].push(entity.toPlainObject());
           }
@@ -160,6 +194,7 @@ const useGameLoop = () => {
           //check entity lifespan
           EntityManager.checkEntityLifespan(entity, gameState.frameCount);
 
+          // Sets Entity Animations
           entityAnimation.setCurrentState(
             currentAnimation,
             gameState.frameCount

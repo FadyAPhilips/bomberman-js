@@ -56,7 +56,7 @@ class Component_Place {
 
   set position(newPos) {
     const currentP = { ...this._pos };
-    this.prevPosition = currentP;
+    this._prevPos = currentP;
     this._pos = newPos;
   }
 
