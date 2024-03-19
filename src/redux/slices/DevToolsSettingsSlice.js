@@ -7,6 +7,7 @@ export const DevSettingState = createSlice({
     logger: Logger.loggerState,
     devSetting: {
       borderToggle: false,
+      collisionBoxToggle: false,
       gameGridToggle: false,
       HUDBorderToggle: false,
       HideHUD: false,

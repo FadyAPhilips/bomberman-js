@@ -24,6 +24,18 @@ const Sprite = styled.img`
   object-fit: cover;
   object-position: ${(props) => props.currentSlice}%;
   transform: scaleX(${(props) => props.dirX});
+  z-index: 10;
+`;
+
+const BoundingBox = styled.div`
+  border: 1px solid red;
+  margin: -1px;
+  height: ${(props) => props.sizeY}px;
+  width: ${(props) => props.sizeX}px;
+  position: absolute;
+  z-index: 11;
+  left: ${(props) => props.posx}px;
+  top: ${(props) => props.posy}px;
 `;
 
 function Entity(props) {
@@ -34,6 +46,9 @@ function Entity(props) {
     COMPONENTS.PLACE
   ).edgePosition;
   const entitySize = entityInstance.getComponent(COMPONENTS.PLACE).size;
+  const entityBounding = entityInstance.getComponent(
+    COMPONENTS.BOUNDING
+  ).bounding;
   const entityDirX = entityInstance.getComponent(COMPONENTS.PLACE).directionX;
   const entityAnimation = entityInstance.getComponent(COMPONENTS.ANIMATION);
 
@@ -58,6 +73,14 @@ function Entity(props) {
         currentSlice={entityAnimation.getAnimationSlice(gameState.frameCount)}
         dirX={entityDirX}
       ></Sprite>
+      {devSettings.collisionBoxToggle ? (
+        <BoundingBox
+          sizeY={entityBounding.y}
+          sizeX={entityBounding.x}
+          posx={(entitySize.x - entityBounding.x) / 2}
+          posy={(entitySize.y - entityBounding.y) / 2}
+        />
+      ) : null}
     </GridItem>
   );
 }
