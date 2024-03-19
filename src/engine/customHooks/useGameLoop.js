@@ -17,6 +17,7 @@ import EntityManager from "../ecs/systems/EntityManager";
 import ENTITY_CLASSES from "../../enums/ENTITY_CLASSES";
 import ENTITY_SUBTYPES from "../../enums/ENTITY_SUBTYPES";
 import COMPONENTS from "../../enums/COMPONENTS";
+import SOUNDS from "../../enums/SOUNDS";
 import gameConfig from "../../gameData/gameConfig.json";
 import assetsMap from "../../gameData/assets.json";
 
@@ -81,7 +82,7 @@ const useGameLoop = () => {
 
             const newEntity = {
               class: ENTITY_CLASSES.BLOCK,
-              subtype: ENTITY_SUBTYPES.WALL_BLOCK,
+              subtype: ENTITY_SUBTYPES.BOMB,
               components: [
                 COMPONENTS.PLACE,
                 COMPONENTS.BOUNDING,
@@ -95,20 +96,23 @@ const useGameLoop = () => {
               [COMPONENTS.BOUNDING]: { x: 64, y: 64 },
               [COMPONENTS.LIFESPAN]: {
                 birthFrame: gameState.frameCount,
-                lifespan: 210,
+                lifespan: 160,
               },
               [COMPONENTS.ANIMATION]: {
                 statesList: {
                   DEFAULT: "default",
                 },
                 assetsList: {
-                  default: assets.block,
+                  default: assets.bomb,
                 },
               },
             };
 
             const newList = { ...newEntityList };
             newEntityList = EntityManager.createEntity(newList, newEntity);
+
+            SOUNDS.BOMB_PLACE.currentTime = 0;
+            SOUNDS.BOMB_PLACE.play();
           }
 
           //Check Collision with the level bounds.
@@ -228,6 +232,12 @@ const useGameLoop = () => {
 
           //check entity lifespan
           EntityManager.checkEntityLifespan(entity, gameState.frameCount);
+
+          //Handle On Entity Expiry Functionality
+          if (!entity.alive) {
+            SOUNDS.BOMB_BLAST.currentTime = 0;
+            SOUNDS.BOMB_BLAST.play();
+          }
 
           entityAnimation.setCurrentState(
             currentAnimation,

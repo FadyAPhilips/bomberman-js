@@ -25,6 +25,11 @@
             "texturePath": "coinspin.png",
             "animationSlices": 6,
             "framesPerSlice": 3
+        },
+        "bomb": {
+            "texturePath": "bomb.png",
+            "animationSlices": 1,
+            "framesPerSlice": 1
         }
     }
 ]
