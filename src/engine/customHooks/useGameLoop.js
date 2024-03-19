@@ -235,8 +235,10 @@ const useGameLoop = () => {
 
           //Handle On Entity Expiry Functionality
           if (!entity.alive) {
-            SOUNDS.BOMB_BLAST.currentTime = 0;
-            SOUNDS.BOMB_BLAST.play();
+            if (entity.subtype === ENTITY_SUBTYPES.BOMB) {
+              SOUNDS.BOMB_BLAST.currentTime = 0;
+              SOUNDS.BOMB_BLAST.play();
+            }
           }
 
           entityAnimation.setCurrentState(

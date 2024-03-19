@@ -23,7 +23,7 @@ const EntityList = [
       pos: { x: 5, y: 4 },
       size: { x: 64, y: 64 },
     },
-    [COMPONENTS.BOUNDING]: { x: 64, y: 64 },
+    [COMPONENTS.BOUNDING]: { x: 50, y: 50 },
     [COMPONENTS.ANIMATION]: {
       statesList: {
         DEFAULT: "default",

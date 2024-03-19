@@ -30,7 +30,9 @@ function Entity(props) {
   const devSettings = useSelector((state) => state.DevSettingState.devSetting);
   const gameState = useSelector((state) => state.gameState);
   const entityInstance = props.entityData;
-  const entityPosition = entityInstance.getComponent(COMPONENTS.PLACE).position;
+  const entityPosition = entityInstance.getComponent(
+    COMPONENTS.PLACE
+  ).edgePosition;
   const entitySize = entityInstance.getComponent(COMPONENTS.PLACE).size;
   const entityDirX = entityInstance.getComponent(COMPONENTS.PLACE).directionX;
   const entityAnimation = entityInstance.getComponent(COMPONENTS.ANIMATION);
