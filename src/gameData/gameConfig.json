@@ -1,7 +1,7 @@
 [
     {
         "gridCellSize": 64,
-        "minGridSize":{ "x": 16, "y": 12 },
+        "minGridSize":{ "x": 12, "y": 11 },
         "gameWindow": {
             "width": 1280,
             "height": 720

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import level2 from "../../gameData/level2.js";
+import level1 from "../../gameData/level1.js";
 import gameConfig from "../../gameData/gameConfig.json";
 
 import ClassEntity from "../../engine/ecs/Entity";
@@ -9,13 +10,13 @@ import ENTITY_CLASSES from "../../enums/ENTITY_CLASSES";
 const config = JSON.parse(JSON.stringify(gameConfig))[0];
 
 let xPositions = config.minGridSize.x;
-let yPositions = config.minGridSize.x;
+let yPositions = config.minGridSize.y;
 const entityList = {};
 Object.values(ENTITY_CLASSES).forEach((element) => {
   entityList[element] = [];
 });
 //Load Level
-level2.forEach((e) => {
+level1.forEach((e) => {
   //Creates all Entity Class Instances
   const entity = new ClassEntity(e.class, e.subtype);
   e.components.forEach((component) => {
