@@ -28,6 +28,27 @@ class LevelBuilder {
       },
     };
   }
+
+  static returnBrickBlock(x, y) {
+    return {
+      class: ENTITY_CLASSES.BLOCK,
+      subtype: ENTITY_SUBTYPES.BRICKS,
+      components: [COMPONENTS.PLACE, COMPONENTS.BOUNDING, COMPONENTS.ANIMATION],
+      [COMPONENTS.PLACE]: {
+        pos: { x: x, y: y },
+        size: { x: 64, y: 64 },
+      },
+      [COMPONENTS.BOUNDING]: { x: 64, y: 64 },
+      [COMPONENTS.ANIMATION]: {
+        statesList: {
+          DEFAULT: "default",
+        },
+        assetsList: {
+          default: assets.bricks,
+        },
+      },
+    };
+  }
 }
 
 export default LevelBuilder;

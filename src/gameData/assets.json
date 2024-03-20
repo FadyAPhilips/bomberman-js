@@ -21,6 +21,11 @@
             "animationSlices": 1,
             "framesPerSlice": 1
         },
+        "bricks": {
+            "texturePath": "brick.png",
+            "animationSlices": 1,
+            "framesPerSlice": 1
+        },
         "coin": {
             "texturePath": "coinspin.png",
             "animationSlices": 6,

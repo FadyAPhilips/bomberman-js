@@ -85,6 +85,9 @@ class Bombs {
         const blockPos = block.getComponent(COMPONENTS.PLACE).gridPosition;
         if (blockPos.x === newPosition.x && blockPos.y === newPosition.y) {
           newFireEntity = false;
+          if (block.subtype === ENTITY_SUBTYPES.BRICKS) {
+            block.destroyEntity();
+          }
         }
       });
     }

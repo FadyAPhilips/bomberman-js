@@ -86,8 +86,10 @@ const EntityList = [
       },
     },
   },
-  //Perimeter Blocks
 
+  LevelBuilder.returnBrickBlock(6, 6),
+  LevelBuilder.returnBrickBlock(7, 6),
+  LevelBuilder.returnBrickBlock(8, 6),
   //Level Blocks
 ];
 
