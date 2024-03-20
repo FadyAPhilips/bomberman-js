@@ -4,6 +4,7 @@ const ENTITY_SUBTYPES = {
   BRICKS: "bricks",
   BOMB: "bomb",
   COIN: "coin",
+  FIRE: "fire",
 };
 
 export default ENTITY_SUBTYPES;

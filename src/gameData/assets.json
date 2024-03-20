@@ -30,6 +30,11 @@
             "texturePath": "bomb.png",
             "animationSlices": 1,
             "framesPerSlice": 1
+        },
+        "fire": {
+            "texturePath": "fire.png",
+            "animationSlices": 10,
+            "framesPerSlice": 4
         }
     }
 ]

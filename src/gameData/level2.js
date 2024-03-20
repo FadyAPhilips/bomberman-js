@@ -14,6 +14,7 @@ const EntityList = [
       COMPONENTS.MOVEMENT,
       COMPONENTS.BOUNDING,
       COMPONENTS.ANIMATION,
+      COMPONENTS.STATUS,
     ],
     [COMPONENTS.MOVEMENT]: {
       acceleration: { x: 2, y: 2 },
@@ -35,6 +36,9 @@ const EntityList = [
         jumping: assets.playerJump,
         run: assets.playerRun,
       },
+    },
+    [COMPONENTS.STATUS]: {
+      bombSize: 3,
     },
   },
   {

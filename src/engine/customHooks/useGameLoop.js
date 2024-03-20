@@ -14,6 +14,7 @@ import Camera from "../ecs/systems/camera";
 import Movement from "../ecs/systems/movement";
 import Physics from "../ecs/systems/physics";
 import EntityManager from "../ecs/systems/EntityManager";
+import Bombs from "../ecs/systems/bombs";
 import ENTITY_CLASSES from "../../enums/ENTITY_CLASSES";
 import ENTITY_SUBTYPES from "../../enums/ENTITY_SUBTYPES";
 import COMPONENTS from "../../enums/COMPONENTS";
@@ -76,43 +77,11 @@ const useGameLoop = () => {
             console.log("ACTION");
             dispatch(setInputSwitch("action"));
 
-            let newPosition = entity.getComponent(
-              COMPONENTS.PLACE
-            ).gridPosition;
-
-            const newEntity = {
-              class: ENTITY_CLASSES.BLOCK,
-              subtype: ENTITY_SUBTYPES.BOMB,
-              components: [
-                COMPONENTS.PLACE,
-                COMPONENTS.BOUNDING,
-                COMPONENTS.LIFESPAN,
-                COMPONENTS.ANIMATION,
-              ],
-              [COMPONENTS.PLACE]: {
-                pos: { x: newPosition.x, y: newPosition.y },
-                size: { x: 64, y: 64 },
-              },
-              [COMPONENTS.BOUNDING]: { x: 64, y: 64 },
-              [COMPONENTS.LIFESPAN]: {
-                birthFrame: gameState.frameCount,
-                lifespan: 160,
-              },
-              [COMPONENTS.ANIMATION]: {
-                statesList: {
-                  DEFAULT: "default",
-                },
-                assetsList: {
-                  default: assets.bomb,
-                },
-              },
-            };
-
-            const newList = { ...newEntityList };
-            newEntityList = EntityManager.createEntity(newList, newEntity);
-
-            SOUNDS.BOMB_PLACE.currentTime = 0;
-            SOUNDS.BOMB_PLACE.play();
+            newEntityList = Bombs.spawnBombFromEntity(
+              entity,
+              newEntityList,
+              gameState.frameCount
+            );
           }
 
           //Check Collision with the level bounds.
@@ -236,8 +205,11 @@ const useGameLoop = () => {
           //Handle On Entity Expiry Functionality
           if (!entity.alive) {
             if (entity.subtype === ENTITY_SUBTYPES.BOMB) {
-              SOUNDS.BOMB_BLAST.currentTime = 0;
-              SOUNDS.BOMB_BLAST.play();
+              newEntityList = Bombs.explodeBomb(
+                entity,
+                newEntityList,
+                gameState.frameCount
+              );
             }
           }
 
