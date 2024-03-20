@@ -51,8 +51,8 @@ class Bombs {
     return EntityManager.createEntity(newList, newEntity);
   }
 
-  static returnFireEntity(newPosition, frameCount) {
-    const newFireEntity = {
+  static returnFireEntity(newPosition, frameCount, blockList) {
+    let newFireEntity = {
       class: ENTITY_CLASSES.ITEM,
       subtype: ENTITY_SUBTYPES.FIRE,
       components: [
@@ -80,10 +80,19 @@ class Bombs {
       },
     };
 
+    if (blockList) {
+      blockList.forEach((block) => {
+        const blockPos = block.getComponent(COMPONENTS.PLACE).gridPosition;
+        if (blockPos.x === newPosition.x && blockPos.y === newPosition.y) {
+          newFireEntity = false;
+        }
+      });
+    }
+
     return newFireEntity;
   }
 
-  static explodeBomb(bombEntity, entityList, frameCount) {
+  static explodeBomb(bombEntity, entityList, frameCount, blockList) {
     SOUNDS.BOMB_BLAST.currentTime = 0;
     SOUNDS.BOMB_BLAST.play();
     let newList = { ...entityList };
@@ -94,32 +103,66 @@ class Bombs {
     const newFireEntity = Bombs.returnFireEntity(bombPosition, frameCount);
     newList = EntityManager.createEntity(newList, newFireEntity);
 
-    //Left Bomb Lines
-    for (let index = 1; index <= bombSize; index++) {
-      const newFirePosition = { x: bombPosition.x + index, y: bombPosition.y };
-      const newFireEntity = Bombs.returnFireEntity(newFirePosition, frameCount);
-      newList = EntityManager.createEntity(newList, newFireEntity);
-    }
-
     //Right Bomb Lines
     for (let index = 1; index <= bombSize; index++) {
+      const newFirePosition = { x: bombPosition.x + index, y: bombPosition.y };
+      const newFireEntity = Bombs.returnFireEntity(
+        newFirePosition,
+        frameCount,
+        blockList
+      );
+
+      if (newFireEntity) {
+        newList = EntityManager.createEntity(newList, newFireEntity);
+      } else {
+        break;
+      }
+    }
+
+    //Left Bomb Lines
+    for (let index = 1; index <= bombSize; index++) {
       const newFirePosition = { x: bombPosition.x - index, y: bombPosition.y };
-      const newFireEntity = Bombs.returnFireEntity(newFirePosition, frameCount);
-      newList = EntityManager.createEntity(newList, newFireEntity);
+      const newFireEntity = Bombs.returnFireEntity(
+        newFirePosition,
+        frameCount,
+        blockList
+      );
+
+      if (newFireEntity) {
+        newList = EntityManager.createEntity(newList, newFireEntity);
+      } else {
+        break;
+      }
     }
 
     //Top Bomb Lines
     for (let index = 1; index <= bombSize; index++) {
       const newFirePosition = { x: bombPosition.x, y: bombPosition.y - index };
-      const newFireEntity = Bombs.returnFireEntity(newFirePosition, frameCount);
-      newList = EntityManager.createEntity(newList, newFireEntity);
+      const newFireEntity = Bombs.returnFireEntity(
+        newFirePosition,
+        frameCount,
+        blockList
+      );
+      if (newFireEntity) {
+        newList = EntityManager.createEntity(newList, newFireEntity);
+      } else {
+        break;
+      }
     }
 
     //Bottom Bomb Lines
     for (let index = 1; index <= bombSize; index++) {
       const newFirePosition = { x: bombPosition.x, y: bombPosition.y + index };
-      const newFireEntity = Bombs.returnFireEntity(newFirePosition, frameCount);
-      newList = EntityManager.createEntity(newList, newFireEntity);
+      const newFireEntity = Bombs.returnFireEntity(
+        newFirePosition,
+        frameCount,
+        blockList
+      );
+      if (newFireEntity) {
+        newList = EntityManager.createEntity(newList, newFireEntity);
+      } else {
+        break;
+      }
     }
 
     return newList;

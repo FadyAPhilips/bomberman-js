@@ -28,7 +28,6 @@ class Physics {
     const levelWidthPix = levelWidth * gridCellSize;
     const levelHeightPix = levelHeight * gridCellSize;
 
-    const entity1Place = entity.getComponent(COMPONENTS.PLACE);
     const entity1Bounding = entity.getComponent(COMPONENTS.BOUNDING).bounding;
     const entity1Pos = currentPosition;
     const entity1Movement = entity.getComponent(COMPONENTS.MOVEMENT);

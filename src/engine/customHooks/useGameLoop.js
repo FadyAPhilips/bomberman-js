@@ -208,7 +208,8 @@ const useGameLoop = () => {
               newEntityList = Bombs.explodeBomb(
                 entity,
                 newEntityList,
-                gameState.frameCount
+                gameState.frameCount,
+                entityList[ENTITY_CLASSES.BLOCK]
               );
             }
           }
