@@ -10,12 +10,12 @@ const assets = JSON.parse(JSON.stringify(assetsMap))[0];
 const generatePerimeterBlock = () => {
   const blocksArray = [];
   for (let y = 1; y <= 15; y++) {
-    blocksArray.push(LevelBuilder.returnWallBlockRaw(1, y));
-    blocksArray.push(LevelBuilder.returnWallBlockRaw(25, y));
+    blocksArray.push(LevelBuilder.block_wall(1, y));
+    blocksArray.push(LevelBuilder.block_wall(25, y));
   }
   for (let x = 2; x < 25; x++) {
-    blocksArray.push(LevelBuilder.returnWallBlockRaw(x, 1));
-    blocksArray.push(LevelBuilder.returnWallBlockRaw(x, 15));
+    blocksArray.push(LevelBuilder.block_wall(x, 1));
+    blocksArray.push(LevelBuilder.block_wall(x, 15));
   }
   return blocksArray;
 };
@@ -24,7 +24,7 @@ const generateStructureBlocks = () => {
   const blocksArray = [];
   for (let x = 3; x < 25; x += 2) {
     for (let y = 3; y < 15; y += 2) {
-      blocksArray.push(LevelBuilder.returnWallBlockRaw(x, y));
+      blocksArray.push(LevelBuilder.block_wall(x, y));
     }
   }
   return blocksArray;
@@ -32,65 +32,16 @@ const generateStructureBlocks = () => {
 
 const EntityList = [
   //players
-  {
-    class: ENTITY_CLASSES.PC,
-    subtype: ENTITY_SUBTYPES.PLAYER1,
-    components: [
-      COMPONENTS.PLACE,
-      COMPONENTS.MOVEMENT,
-      COMPONENTS.BOUNDING,
-      COMPONENTS.ANIMATION,
-      COMPONENTS.STATUS,
-    ],
-    [COMPONENTS.MOVEMENT]: {
-      acceleration: { x: 2, y: 2 },
-      maxVel: { x: 8, y: 8 },
-    },
-    [COMPONENTS.PLACE]: {
-      pos: { x: 5, y: 4 },
-      size: { x: 64, y: 64 },
-    },
-    [COMPONENTS.BOUNDING]: { x: 50, y: 50 },
-    [COMPONENTS.ANIMATION]: {
-      statesList: {
-        DEFAULT: "default",
-        JUMPING: "jumping",
-        RUN: "run",
-      },
-      assetsList: {
-        default: assets.player,
-        jumping: assets.playerJump,
-        run: assets.playerRun,
-      },
-    },
-    [COMPONENTS.STATUS]: {
-      bombSize: 3,
-    },
-  },
-  //Items
-  {
-    class: ENTITY_CLASSES.ITEM,
-    subtype: ENTITY_SUBTYPES.COIN,
-    components: [COMPONENTS.PLACE, COMPONENTS.BOUNDING, COMPONENTS.ANIMATION],
-    [COMPONENTS.PLACE]: {
-      pos: { x: 20, y: 10 },
-      size: { x: 64, y: 64 },
-    },
-    [COMPONENTS.BOUNDING]: { x: 60, y: 60 },
-    [COMPONENTS.ANIMATION]: {
-      statesList: {
-        DEFAULT: "default",
-      },
-      assetsList: {
-        default: assets.coin,
-      },
-    },
-  },
+  LevelBuilder.spawnPlayer1(2, 2),
 
-  LevelBuilder.returnBrickBlock(6, 6),
-  LevelBuilder.returnBrickBlock(7, 6),
-  LevelBuilder.returnBrickBlock(8, 6),
-  //Level Blocks
+  //Items
+  LevelBuilder.item_coin(19, 10),
+
+  //blocks
+  LevelBuilder.block_brick(3, 6),
+  LevelBuilder.block_brick(6, 6),
+  LevelBuilder.block_brick(7, 6),
+  LevelBuilder.block_brick(8, 6),
 ];
 
 EntityList.push(...generatePerimeterBlock());

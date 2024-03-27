@@ -5,9 +5,13 @@ import {
   toggleDevSetting,
   toggleLoggerSetting,
 } from "../../redux/slices/DevToolsSettingsSlice";
+import { loadLevelFromFile } from "../../redux/slices/levelDataSlice";
 import Logger from "../logger";
 
 import DevToolsToggler from "./devToolsToggler";
+
+import level1 from "../../gameData/level1";
+import level2 from "../../gameData/level2";
 
 const DevTools = styled.div`
   border: 2px green solid;
@@ -57,6 +61,12 @@ function DevToolsDash() {
     <DevTools>
       <h1>Dev Tools</h1>
       <div>FPS: {gameState.frameRate}</div>
+      <button onClick={() => dispatch(loadLevelFromFile(level1))}>
+        Level1
+      </button>
+      <button onClick={() => dispatch(loadLevelFromFile(level2))}>
+        Level2
+      </button>
       <h2>Dev Settings</h2>
       <TogglersDiv>{devSettingsTogglers}</TogglersDiv>
       <h2>Logger Settings</h2>

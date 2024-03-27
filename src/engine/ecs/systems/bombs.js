@@ -33,7 +33,7 @@ class Bombs {
       [COMPONENTS.BOUNDING]: { x: 64, y: 64 },
       [COMPONENTS.LIFESPAN]: {
         birthFrame: frameCount,
-        lifespan: 160,
+        lifespan: 120,
       },
       [COMPONENTS.ANIMATION]: {
         statesList: {
