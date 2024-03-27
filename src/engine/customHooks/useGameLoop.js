@@ -1,7 +1,10 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Logger from "../../devTools/logger";
-import { setEntities } from "../../redux/slices/levelDataSlice";
+import {
+  setEntities,
+  loadLevelFromFile,
+} from "../../redux/slices/levelDataSlice";
 import { setCameraPosition } from "../../redux/slices/cameraSlice";
 import {
   togglePause,
@@ -10,6 +13,7 @@ import {
   calculateFrameRate,
 } from "../../redux/slices/gameStateSlice";
 import { setInputSwitch } from "../../redux/slices/inputsSlice";
+import LevelBuilder from "../ecs/systems/levelBuilder";
 import Camera from "../ecs/systems/camera";
 import Movement from "../ecs/systems/movement";
 import Physics from "../ecs/systems/physics";
@@ -74,7 +78,6 @@ const useGameLoop = () => {
 
           //handles player actions
           if (controlsList.action.state && controlsList.action.switch) {
-            console.log("ACTION");
             dispatch(setInputSwitch("action"));
 
             newEntityList = Bombs.spawnBombFromEntity(
@@ -119,6 +122,16 @@ const useGameLoop = () => {
               if (overlap.x > 0 && overlap.y > 0) {
                 if (entity2.subtype === ENTITY_SUBTYPES.COIN) {
                   entity2.destroyEntity();
+                }
+                if (entity2.subtype === ENTITY_SUBTYPES.FIRE) {
+                  console.log("GAME OVER");
+                  entity.destroyEntity();
+
+                  const newPlayer = LevelBuilder.spawnPlayer1(2, 2);
+                  newEntityList = EntityManager.createEntity(
+                    newEntityList,
+                    newPlayer
+                  );
                 }
               }
             });
