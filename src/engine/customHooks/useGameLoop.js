@@ -24,9 +24,7 @@ import ENTITY_SUBTYPES from "../../enums/ENTITY_SUBTYPES";
 import COMPONENTS from "../../enums/COMPONENTS";
 import SOUNDS from "../../enums/SOUNDS";
 import gameConfig from "../../gameData/gameConfig.json";
-import assetsMap from "../../gameData/assets.json";
 
-const assets = JSON.parse(JSON.stringify(assetsMap))[0];
 const config = JSON.parse(JSON.stringify(gameConfig))[0];
 
 const useGameLoop = () => {

@@ -22,6 +22,17 @@ const GameWindow = styled.div`
   position: relative;
 `;
 
+const PauseScreen = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 100pt;
+`;
+
 function Game() {
   const config = JSON.parse(JSON.stringify(gameConfig))[0];
 
@@ -31,6 +42,7 @@ function Game() {
 
   const entityList = EntityManager.entityListFromPlainObj(entityPlainObj);
   const devSettings = useSelector((state) => state.DevSettingState.devSetting);
+  const gameState = useSelector((state) => state.gameState);
 
   useGameInputHandler();
   useGameLoop();
@@ -95,6 +107,18 @@ function Game() {
     <GameWindow gameWindow={calcGameWindowSize()}>
       <GameGrid>{loadEntities(entityList)}</GameGrid>
       {loadHUD()}
+      {gameState.pauseStatus ? (
+        <HUDItem
+          top={0}
+          left={0}
+          size={{
+            x: calcGameWindowSize().width,
+            y: calcGameWindowSize().height,
+          }}
+        >
+          <PauseScreen>Paused</PauseScreen>
+        </HUDItem>
+      ) : null}
     </GameWindow>
   );
 }
