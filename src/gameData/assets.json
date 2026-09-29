@@ -1,20 +1,20 @@
 [
     {
         "player": {
-            "texturePath": "megaman.png",
+            "texturePath": "BM1.png",
             "animationSlices": 1,
             "framesPerSlice": 1
         },
         "playerJump": {
-            "texturePath": "air64.png",
-            "animationSlices": 1,
-            "framesPerSlice": 1
+            "texturePath": "BombermanSpriteDown.png",
+            "animationSlices": 3,
+            "framesPerSlice": 5
 
         },
         "playerRun": {
-            "texturePath": "run64.png",
-            "animationSlices": 4,
-            "framesPerSlice": 4
+            "texturePath": "BombermanSpriteSide.png",
+            "animationSlices": 3,
+            "framesPerSlice": 5
         },
         "block": {
             "texturePath": "block.png",

@@ -25,7 +25,7 @@ class LevelBuilder {
       },
       [COMPONENTS.PLACE]: {
         pos: { x: x, y: y },
-        size: { x: 64, y: 64 },
+        size: { x: 60, y: 60 },
       },
       [COMPONENTS.BOUNDING]: { x: 50, y: 50 },
       [COMPONENTS.ANIMATION]: {
